@@ -9,15 +9,28 @@ public class Earth : MonoBehaviour
 
     private Animator animator;
 
+    [Header("Earth Configuration")]
+
     [Range(1, 240)]
     [SerializeField]
     private int periodSeconds = 120;
+
+    [Space(5)]
+    [Header("Game Info")]
+    [SerializeField]
+    private int soulsCollected = 0;
 
     #endregion
 
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+    }
+
+    void CollectSoul()
+    {
+        soulsCollected++;
+        Debug.Log("Soul Collected");
     }
 
     #region Mouse Inputs
@@ -52,6 +65,8 @@ public class Earth : MonoBehaviour
 
     private void OnMouseUp()
     {
+        CollectSoul();
+
         //Debug.Log("Mouse Up");
         if (animator)
         {
@@ -69,7 +84,7 @@ public class Earth : MonoBehaviour
 
     #endregion
 
-    private void rotate()
+    private void Rotate()
     {
         float rpm = (60f / periodSeconds);
         float rotationAngle = 6f * rpm * Time.deltaTime;
@@ -79,6 +94,6 @@ public class Earth : MonoBehaviour
 
     private void Update()
     {
-        rotate();
+        Rotate();
     }
 }
