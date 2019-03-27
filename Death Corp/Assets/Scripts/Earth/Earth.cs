@@ -25,12 +25,14 @@ public class Earth : MonoBehaviour
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        FloatingPopupController.Initialize();
     }
 
     void CollectSoul()
     {
         soulsCollected++;
-        Debug.Log("Soul Collected");
+        FloatingPopupController.CreateFloatingPopup();
+        //Debug.Log("Soul Collected");
     }
 
     #region Mouse Inputs
