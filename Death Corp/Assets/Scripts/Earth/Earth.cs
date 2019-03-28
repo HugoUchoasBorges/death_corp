@@ -19,6 +19,18 @@ public class Earth : MonoBehaviour
     [Header("Game Info")]
     [SerializeField]
     private int soulsCollected = 0;
+    [SerializeField]
+    private int soulsCRI = 0;
+    [SerializeField]
+    private int soulsCRC = 0;
+    [SerializeField]
+    private int deathRate = 0;
+    [SerializeField]
+    private int birthRate = 0;
+    [SerializeField]
+    private int faithLevel = 0;
+    [SerializeField]
+    private int population = 0;
 
     #endregion
 

@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     #region Variables
 
     public static Earth earthInstance;
+    public static GameController gameControllerInstance;
 
     #endregion
 
