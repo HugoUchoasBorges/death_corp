@@ -18,6 +18,8 @@ public class Earth : MonoBehaviour
     [Space(5)]
     [Header("Game Info")]
     [SerializeField]
+    private int clickAmount = 0;
+    [SerializeField]
     private int soulsCollected = 0;
     [SerializeField]
     private int soulsCRI = 0;
@@ -84,6 +86,7 @@ public class Earth : MonoBehaviour
 
     private void OnMouseUp()
     {
+        clickAmount++;
         CollectSoul();
 
         //Debug.Log("Mouse Up");
