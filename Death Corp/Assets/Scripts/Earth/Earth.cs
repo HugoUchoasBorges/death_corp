@@ -22,6 +22,11 @@ public class Earth : MonoBehaviour
 
     #endregion
 
+    void Awake()
+    {
+        // Tells Singleton GameManager that I'm the main Earth instance  
+        GameManager.earthInstance = this;
+    }
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();

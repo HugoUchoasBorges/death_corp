@@ -7,7 +7,9 @@ public class GameManager : Singleton<GameManager>
 {
 
     #region Variables
-    
+
+    public static Earth earthInstance;
+
     #endregion
 
     /// <summary>
