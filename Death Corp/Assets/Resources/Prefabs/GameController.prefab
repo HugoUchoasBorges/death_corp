@@ -51,13 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b0706a2e08e0f4aa7c4ef11743daad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickAmount: 0
-  soulsCollected: 0
-  blessingPoints: 0
-  cursePoints: 0
-  soulsCRI: 0
-  soulsCRC: 0
-  deathRate: 0
-  birthRate: 0
-  faithLevel: 0
+  gameState:
+    name: GameState
+    clickAmount: 0
+    soulsCollected: 0
+    blessingPoints: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    deathRate: 0
+    birthRate: 0
+    faithLevel: 0
   multiplier: 1

@@ -2,32 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
+
+    [System.Serializable]
+    public class State
+    {
+        public string name;
+
+        [Header("Points")]
+        public int clickAmount = 0;
+        public int soulsCollected = 0;
+        public int blessingPoints = 0;
+        private int cursePoints = 0;
+
+        [Space(5)]
+        [Header("Game Info")]
+        [SerializeField]
+        private int soulsCRI = 0;
+        [SerializeField]
+        private int soulsCRC = 0;
+        [SerializeField]
+        private int deathRate = 0;
+        [SerializeField]
+        private int birthRate = 0;
+        [SerializeField]
+        private int faithLevel = 0;
+    }
 
     #region Variables
 
-    [Header("Points")]
-    [SerializeField]
-    private int clickAmount = 0;
-    [SerializeField]
-    private int soulsCollected = 0;
-    [SerializeField]
-    private int blessingPoints = 0;
-    [SerializeField]
-    private int cursePoints = 0;
-
-    [Space(5)]
-    [Header("Game Info")]
-    [SerializeField]
-    private int soulsCRI = 0;
-    [SerializeField]
-    private int soulsCRC = 0;
-    [SerializeField]
-    private int deathRate = 0;
-    [SerializeField]
-    private int birthRate = 0;
-    [SerializeField]
-    private int faithLevel = 0;
+    public State gameState;
 
     [Space(5)]
     [Header("PowerUps")]
@@ -40,6 +45,7 @@ public class GameController : MonoBehaviour {
     {
         // Tells Singleton GameManager that I'm the main GameController instance  
         GameManager.gameControllerInstance = this;
+        gameState.name = "GameState";
     }
 
     /// <summary>
@@ -57,7 +63,7 @@ public class GameController : MonoBehaviour {
     public void CollectSouls(int amount)
     {
         FloatingPopupController.CreateFloatingPopup();
-        soulsCollected += amount * multiplier;
-        clickAmount++;
+        gameState.soulsCollected += amount * multiplier;
+        gameState.clickAmount++;
     }
 }
