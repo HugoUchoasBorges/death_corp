@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +26,43 @@ public class GameController : MonoBehaviour
         {
             if (state.clickAmount > clickAmount)
             {
+                return false;
+            }
+            if (state.soulsCollected > soulsCollected)
+            {
+                return false;
+            }
+            if (state.blessingPoints > blessingPoints)
+            {
+                return false;
+            }
+            if (state.cursePoints > cursePoints)
+            {
+                return false;
+            }
+            if (state.soulsCRI > soulsCRI)
+            {
+                return false;
+            }
+            if (state.soulsCRC > soulsCRC)
+            {
+                return false;
+            }
+            if (state.deathRate > deathRate)
+            {
+                return false;
+            }
+            if (state.birthRate > birthRate)
+            {
+                return false;
+            }
+            if (state.faithLevel > faithLevel)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 
     #region Variables
@@ -36,6 +73,9 @@ public class GameController : MonoBehaviour
     [Header("PowerUps")]
     [SerializeField]
     private int multiplier = 1;
+
+    [Space(5)]
+    public Achievement[] achievements;
 
     #endregion
 
@@ -62,5 +102,13 @@ public class GameController : MonoBehaviour
         FloatingPopupController.CreateFloatingPopup();
         gameState.soulsCollected += amount * multiplier;
         gameState.clickAmount++;
+
+        foreach (Achievement achievement in achievements)
+        {
+            if (gameState.checkAchievementState(achievement.requiredState))
+            {
+                Debug.Log(achievement.message);
+            }
+        }
     }
 }
