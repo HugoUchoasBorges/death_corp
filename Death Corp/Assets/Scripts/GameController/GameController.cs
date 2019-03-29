@@ -8,26 +8,37 @@ public class GameController : MonoBehaviour
     [System.Serializable]
     public class State
     {
-        public string name;
-
         [Header("Points")]
         public int clickAmount = 0;
         public int soulsCollected = 0;
         public int blessingPoints = 0;
-        private int cursePoints = 0;
+        public int cursePoints = 0;
 
         [Space(5)]
         [Header("Game Info")]
-        [SerializeField]
-        private int soulsCRI = 0;
-        [SerializeField]
-        private int soulsCRC = 0;
-        [SerializeField]
-        private int deathRate = 0;
-        [SerializeField]
-        private int birthRate = 0;
-        [SerializeField]
-        private int faithLevel = 0;
+        public int soulsCRI = 0;
+        public int soulsCRC = 0;
+        public int deathRate = 0;
+        public int birthRate = 0;
+        public int faithLevel = 0;
+
+        public bool checkAchievementState(State state)
+        {
+            System.Reflection.FieldInfo[] fields = this.GetType().GetFields();
+
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                int stateFieldValue = (int)this.GetType().GetField(field.Name).GetValue(state);
+                int thisFieldValue = (int)this.GetType().GetField(field.Name).GetValue(this);
+
+                if (stateFieldValue > thisFieldValue)
+                {
+                    return false;
+                }
+            }
+           
+            return true;
+        }
     }
 
     #region Variables
@@ -38,6 +49,9 @@ public class GameController : MonoBehaviour
     [Header("PowerUps")]
     [SerializeField]
     private int multiplier = 1;
+
+    [Space(5)]
+    public Achievement[] achievements;
 
     #endregion
 
@@ -65,5 +79,13 @@ public class GameController : MonoBehaviour
         FloatingPopupController.CreateFloatingPopup();
         gameState.soulsCollected += amount * multiplier;
         gameState.clickAmount++;
+
+        foreach (Achievement achievement in achievements)
+        {
+            if (gameState.checkAchievementState(achievement.requiredState))
+            {
+                Debug.Log(achievement.message);
+            }
+        }
     }
 }
