@@ -59,7 +59,6 @@ public class GameController : MonoBehaviour
     {
         // Tells Singleton GameManager that I'm the main GameController instance  
         GameManager.gameControllerInstance = this;
-        gameState.name = "GameState";
     }
 
     /// <summary>
