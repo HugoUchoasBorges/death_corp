@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -110,6 +109,8 @@ public class GameController : MonoBehaviour
         {
             currentTime = 0;
             GameManager.earthInstance.Population += (gameState.birthRate - gameState.deathRate);
+            GameManager.canvasInstance.GetComponentInChildren<Text>().text = "Population: " +
+                Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
         }
     }
 
