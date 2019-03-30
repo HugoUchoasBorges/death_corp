@@ -95,6 +95,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private float tickTime = 1.0f;
 
+    private Text[] infoDisplays;
+
     #endregion
 
     /// <summary>
@@ -109,8 +111,12 @@ public class GameController : MonoBehaviour
         {
             currentTime = 0;
             GameManager.earthInstance.Population += (gameState.birthRate - gameState.deathRate);
-            GameManager.canvasInstance.GetComponentInChildren<Text>().text = "Population: " +
-                Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
+            gameState.soulsCollected += gameState.deathRate;
+            
+            // Temp
+            infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
+            infoDisplays[0].text = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
+            infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.soulsCollected).ToString();
         }
     }
 
