@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     public static Earth earthInstance;
     public static GameController gameControllerInstance;
+    public static Canvas canvasInstance;
 
     #endregion
 

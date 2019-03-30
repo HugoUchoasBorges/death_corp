@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class GameController : MonoBehaviour
     {
         [Header("Points")]
         public int clickAmount = 0;
-        public int soulsCollected = 0;
+        public float soulsCollected = 0;
         public int blessingPoints = 0;
         public int cursePoints = 0;
 
@@ -18,8 +17,8 @@ public class GameController : MonoBehaviour
         [Header("Game Info")]
         public int soulsCRI = 0;
         public int soulsCRC = 0;
-        public int deathRate = 0;
-        public int birthRate = 0;
+        public float deathRate = 0;
+        public float birthRate = 0;
         public int faithLevel = 0;
 
         public bool checkAchievementState(State state)
@@ -86,5 +85,43 @@ public class GameController : MonoBehaviour
                 Debug.Log(achievement.message);
             }
         }
+    }
+
+    #region Population generator variables
+    
+    private float currentTime = 0;
+    private int currentTimeInSeconds = 0;
+    [Header("Generator settings")]
+    [SerializeField]
+    private float tickTime = 1.0f;
+
+    private Text[] infoDisplays;
+
+    #endregion
+
+    /// <summary>
+    /// This is a population generator, handles all the birth and death tasks
+    /// and also collects the soul of the dead.
+    /// </summary>
+    public void HandlePopulation()
+    {
+        currentTime += Time.deltaTime;
+        currentTimeInSeconds = (int) currentTime % 60;
+        if (currentTimeInSeconds >= tickTime)
+        {
+            currentTime = 0;
+            GameManager.earthInstance.Population += (gameState.birthRate - gameState.deathRate);
+            gameState.soulsCollected += gameState.deathRate;
+            
+            // Temp
+            infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
+            infoDisplays[0].text = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
+            infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.soulsCollected).ToString();
+        }
+    }
+
+    private void Update()
+    {
+        HandlePopulation();
     }
 }
