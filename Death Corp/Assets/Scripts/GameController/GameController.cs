@@ -109,7 +109,7 @@ public class GameController : MonoBehaviour
         if (currentTimeInSeconds >= tickTime)
         {
             currentTime = 0;
-            GameManager.earthInstance.Population += (gameState.birthRate);
+            GameManager.earthInstance.Population += (gameState.birthRate - gameState.deathRate);
         }
     }
 
