@@ -19,8 +19,16 @@ public class FloatingPopup : MonoBehaviour
         {
             // Pega informações da animação Popup em execução
             AnimatorClipInfo[] clipInfos = animator.GetCurrentAnimatorClipInfo(0);
-            // Destroi o objeto (popup) após o término da animação
-            Destroy(gameObject, clipInfos[0].clip.length);
+            StartCoroutine(InitializePopupCoroutine(clipInfos[0].clip.length));
+            
         }
+    }
+
+    IEnumerator InitializePopupCoroutine(float clipLength)
+    {
+
+        // Wait for the Popup Animation to finish
+        yield return new WaitForSeconds(clipLength);
+        FloatingPopupController.poolQueue.Enqueue(this);
     }
 }
