@@ -23,20 +23,21 @@ public class GameController : MonoBehaviour
 
         public bool checkAchievementState(State state)
         {
-            System.Reflection.FieldInfo[] fields = this.GetType().GetFields();
+            return false;
+            //System.Reflection.FieldInfo[] fields = this.GetType().GetFields();
 
-            foreach (System.Reflection.FieldInfo field in fields)
-            {
-                int stateFieldValue = (int)this.GetType().GetField(field.Name).GetValue(state);
-                int thisFieldValue = (int)this.GetType().GetField(field.Name).GetValue(this);
+            //foreach (System.Reflection.FieldInfo field in fields)
+            //{
+            //    int stateFieldValue = (int)this.GetType().GetField(field.Name).GetValue(state);
+            //    int thisFieldValue = (int)this.GetType().GetField(field.Name).GetValue(this);
 
-                if (stateFieldValue > thisFieldValue)
-                {
-                    return false;
-                }
-            }
+            //    if (stateFieldValue > thisFieldValue)
+            //    {
+            //        return false;
+            //    }
+            //}
            
-            return true;
+            //return true;
         }
     }
 
@@ -78,13 +79,13 @@ public class GameController : MonoBehaviour
         gameState.soulsCollected += amount * multiplier;
         gameState.clickAmount++;
 
-        foreach (Achievement achievement in achievements)
-        {
-            if (gameState.checkAchievementState(achievement.requiredState))
-            {
-                Debug.Log(achievement.message);
-            }
-        }
+        //foreach (Achievement achievement in achievements)
+        //{
+        //    if (gameState.checkAchievementState(achievement.requiredState))
+        //    {
+        //        Debug.Log(achievement.message);
+        //    }
+        //}
     }
 
     #region Population generator variables
