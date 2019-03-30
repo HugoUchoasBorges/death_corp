@@ -8,14 +8,12 @@ public class FloatingPopupController : MonoBehaviour
     #region Variables
 
     private static FloatingPopup floatingPopup;
-    private static GameObject canvas;
 
     #endregion
 
     public static void Initialize()
     {
-        floatingPopup = Resources.Load<FloatingPopup>("Prefabs/PopupParent");
-        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        floatingPopup = Resources.Load<FloatingPopup>("Prefabs/Fantasminha");
     }
 
     public static void CreateFloatingPopup()
@@ -23,11 +21,9 @@ public class FloatingPopupController : MonoBehaviour
         if (floatingPopup)
         {
             FloatingPopup instance = Instantiate(floatingPopup);
-            if (canvas)
-            {
-                instance.transform.SetParent(canvas.transform, false);
-                instance.transform.position = Input.mousePosition;
-            }   
+            instance.transform.SetParent(GameManager.earthInstance.transform, false);
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            instance.transform.position = mousePosition;
         }
     }
 }

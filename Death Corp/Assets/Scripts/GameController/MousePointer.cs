@@ -23,13 +23,7 @@ public class MousePointer : MonoBehaviour
     {
         if (animator)
         {
-            if(animator.GetBool("MouseClick") == true)
-            {
-                animator.Play("MouseClick", -1, 0f);
-            }else
-            {
-                animator.SetBool("MouseClick", true);
-            }
+            animator.SetBool("MouseClick", true);
         }
     }
 
