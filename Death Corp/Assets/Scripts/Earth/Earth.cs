@@ -18,7 +18,17 @@ public class Earth : MonoBehaviour
     [Space(5)]
     [Header("Earth Info")]
     [SerializeField]
-    private int population = 0;
+    private float population = 0;
+
+    public float Population {
+        get {
+            return population;
+        }
+
+        set {
+            population = value;
+        }
+    }
 
     #endregion
 
