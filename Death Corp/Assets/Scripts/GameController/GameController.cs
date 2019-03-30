@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-
     [System.Serializable]
     public class State
     {
@@ -36,7 +35,7 @@ public class GameController : MonoBehaviour
             //        return false;
             //    }
             //}
-           
+
             //return true;
         }
     }
@@ -52,6 +51,18 @@ public class GameController : MonoBehaviour
 
     [Space(5)]
     public Achievement[] achievements;
+
+    #endregion
+
+    #region Population generator variables
+
+    private float currentTime = 0;
+    private int currentTimeInSeconds = 0;
+    [Header("Generator settings")]
+    [SerializeField]
+    private float tickTime = 1.0f;
+
+    private Text[] infoDisplays;
 
     #endregion
 
@@ -75,9 +86,17 @@ public class GameController : MonoBehaviour
     /// <param name="amount">Amount of Souls to Collect</param>
     public void CollectSouls(int amount)
     {
-        FloatingPopupController.CreateFloatingPopup();
-        gameState.soulsCollected += amount * multiplier;
-        gameState.clickAmount++;
+
+        float soulsCollectedAmount = Mathf.Min(GameManager.earthInstance.Population, amount * multiplier);
+        if (soulsCollectedAmount > 0)
+        {
+            GameManager.earthInstance.Population -= soulsCollectedAmount;
+            gameState.soulsCollected += soulsCollectedAmount;
+            gameState.clickAmount++;
+
+            FloatingPopupController.CreateFloatingPopup();
+            UpdateGUI();
+        }
 
         //foreach (Achievement achievement in achievements)
         //{
@@ -88,17 +107,20 @@ public class GameController : MonoBehaviour
         //}
     }
 
-    #region Population generator variables
-    
-    private float currentTime = 0;
-    private int currentTimeInSeconds = 0;
-    [Header("Generator settings")]
-    [SerializeField]
-    private float tickTime = 1.0f;
+    /// <summary>
+    /// Updates all information on Screen
+    /// </summary>
+    public void UpdateGUI()
+    {
+        if (infoDisplays == null)
+        {
+            infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
+        }
 
-    private Text[] infoDisplays;
-
-    #endregion
+        // Temp
+        infoDisplays[0].text = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
+        infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.soulsCollected).ToString();
+    }
 
     /// <summary>
     /// This is a population generator, handles all the birth and death tasks
@@ -107,21 +129,19 @@ public class GameController : MonoBehaviour
     public void HandlePopulation()
     {
         currentTime += Time.deltaTime;
-        currentTimeInSeconds = (int) currentTime % 60;
+        currentTimeInSeconds = (int)currentTime % 60;
         if (currentTimeInSeconds >= tickTime)
         {
             currentTime = 0;
             GameManager.earthInstance.Population += (gameState.birthRate - gameState.deathRate);
             gameState.soulsCollected += gameState.deathRate;
-            
-            // Temp
-            infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
-            infoDisplays[0].text = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
-            infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.soulsCollected).ToString();
+
+            UpdateGUI();
         }
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
         HandlePopulation();
     }
