@@ -69,6 +69,7 @@ public class Earth : MonoBehaviour
         {
             animator.SetBool("MouseDown", false);
         }
+        GameManager.mousePointerInstance.Click();
     }
     private void OnMouseDown()
     {
