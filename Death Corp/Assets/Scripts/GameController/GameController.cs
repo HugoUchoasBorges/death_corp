@@ -3,11 +3,25 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    #region Inner Classes
+
+    [System.Serializable]
+    public class SoulsCollector
+    {
+        public int level = 1;
+        public int cost = 1000;
+        public float soulsCRI = 0;
+        public float soulsCRC = 0;
+        public float goodFaith;
+        public float badFaith;
+    }
+
     [System.Serializable]
     public class State
     {
         [Header("Points")]
         public float clickAmount = 0;
+        public float level = 0;
         [SerializeField]
         private float soulsCollected = 100;
         public float SoulsCollected
@@ -35,27 +49,33 @@ public class GameController : MonoBehaviour
 
         public bool checkAchievementState(State state)
         {
-            return false;
-            //System.Reflection.FieldInfo[] fields = this.GetType().GetFields();
+            System.Reflection.FieldInfo[] fields = this.GetType().GetFields();
 
-            //foreach (System.Reflection.FieldInfo field in fields)
-            //{
-            //    int stateFieldValue = (int)this.GetType().GetField(field.Name).GetValue(state);
-            //    int thisFieldValue = (int)this.GetType().GetField(field.Name).GetValue(this);
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                int stateFieldValue = (int)this.GetType().GetField(field.Name).GetValue(state);
+                int thisFieldValue = (int)this.GetType().GetField(field.Name).GetValue(this);
 
-            //    if (stateFieldValue > thisFieldValue)
-            //    {
-            //        return false;
-            //    }
-            //}
+                if (stateFieldValue > thisFieldValue)
+                {
+                    return false;
+                }
+            }
 
-            //return true;
+            return true;
         }
     }
+
+    #endregion
 
     #region Variables
 
     public State gameState;
+
+    // Souls Collectors
+    public SoulsCollector earthSoulsCollector;
+    public SoulsCollector heavenSoulsCollector;
+    public SoulsCollector hellSoulsCollector;
 
     [Space(5)]
     [Header("PowerUps")]
@@ -115,15 +135,19 @@ public class GameController : MonoBehaviour
 
             FloatingPopupController.CreateFloatingPopup();
             UpdateGUI();
+            //CheckAchievements();
         }
+    }
 
-        //foreach (Achievement achievement in achievements)
-        //{
-        //    if (gameState.checkAchievementState(achievement.requiredState))
-        //    {
-        //        Debug.Log(achievement.message);
-        //    }
-        //}
+    public void CheckAchievements()
+    {
+        foreach (Achievement achievement in achievements)
+        {
+            if (gameState.checkAchievementState(achievement.requiredState))
+            {
+                Debug.Log(achievement.message);
+            }
+        }
     }
 
     /// <summary>
