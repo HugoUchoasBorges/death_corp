@@ -355,7 +355,12 @@ Prefab:
     - target: {fileID: 114890762810570194, guid: 8648a595aaf2a0c4580cb4fe947393fe,
         type: 2}
       propertyPath: population
-      value: 10000
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114890762810570194, guid: 8648a595aaf2a0c4580cb4fe947393fe,
+        type: 2}
+      propertyPath: initialPopulation
+      value: 7e+9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8648a595aaf2a0c4580cb4fe947393fe, type: 2}
@@ -462,20 +467,30 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 888245254}
-    - target: {fileID: 114015056502851918, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+    - target: {fileID: 224941154875933760, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpgradeGen3
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114150294883459552, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+    - target: {fileID: 224941154875933760, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpgradeGen4
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114812866917280460, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+    - target: {fileID: 224395359732915112, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpgradeGen5
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224395359732915112, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224395359732915112, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 58d129e2b8814cc4e9a14a6411e8c6b9, type: 2}

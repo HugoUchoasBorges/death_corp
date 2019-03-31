@@ -17,8 +17,9 @@ public class Earth : MonoBehaviour
 
     [Space(5)]
     [Header("Earth Info")]
+    public float initialPopulation = 70;
     [SerializeField]
-    private float population = 10000;
+    private float population = 0;
 
     public float Population {
         get {
@@ -36,6 +37,7 @@ public class Earth : MonoBehaviour
     {
         // Tells Singleton GameManager that I'm the main Earth instance  
         GameManager.earthInstance = this;
+        Population = initialPopulation;
     }
     void Start()
     {

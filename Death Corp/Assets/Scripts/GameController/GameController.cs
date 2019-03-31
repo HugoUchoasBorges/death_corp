@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
         public float cost = 0;
         public float soulsCRI = 0;
         public float soulsCRC = 0;
+        public float birthRate = 0;
+        public float deathRate = 0;
         public float goodFaith = 0;
         public float badFaith = 0;
 
@@ -31,30 +33,33 @@ public class GameController : MonoBehaviour
 
         public bool CheckUpgradeAvailability()
         {
+            GameController.State gameState = GameManager.gameControllerInstance.gameState;
+
             // It means it's an Earth upgrade
             if (name.Contains("Gen"))
             {
-                if (GameManager.gameControllerInstance.gameState.SoulsCollected >= cost)
+                if (gameState.SoulsCollected >= cost)
                 {
-                    GameManager.gameControllerInstance.gameState.SoulsCollected -= cost;
+                    gameState.SoulsCollected -= cost;
                     return true;
                 }
                 return false;
             }
             if (name.Contains("Bless"))
             {
-                if (GameManager.gameControllerInstance.gameState.blessingPoints > cost)
+                if (gameState.blessingPoints >= cost)
                 {
-                    GameManager.gameControllerInstance.gameState.blessingPoints -= cost;
+                    gameState.blessingPoints -= cost;
                     return true;
                 }
                 return false;
             }
             if (name.Contains("Curse"))
             {
-                if (GameManager.gameControllerInstance.gameState.cursePoints > cost)
+                if (gameState.cursePoints >= cost)
                 {
-                    GameManager.gameControllerInstance.gameState.cursePoints -= cost;
+                    Debug.Log("Curse True");
+                    gameState.cursePoints -= cost;
                     return true;
                 }
                 return false;
@@ -74,8 +79,14 @@ public class GameController : MonoBehaviour
 
         public void CalculateNextLevel()
         {
+            GameController.State gameState = GameManager.gameControllerInstance.gameState;
             switch (name)
             {
+                default:
+                    CalculateGen1();
+                    break;
+
+                // Gen Cases
                 case "Gen1":
                     CalculateGen1();
                     break;
@@ -92,8 +103,32 @@ public class GameController : MonoBehaviour
                     CalculateGen5();
                     break;
 
-                default:
-                    CalculateGen1();
+                // Bless Cases
+                case "Bless1":
+                    CalculateBless1();
+                    break;
+                case "Bless2":
+                    CalculateBless2();
+                    break;
+                case "Bless3":
+                    CalculateBless3();
+                    break;
+                case "Bless":
+                    CalculateBless4();
+                    break;
+
+                // Curse Cases
+                case "Curse1":
+                    CalculateCurse1();
+                    break;
+                case "Curse2":
+                    CalculateCurse2();
+                    break;
+                case "Curse3":
+                    CalculateCurse3();
+                    break;
+                case "Curse4":
+                    CalculateCurse4();
                     break;
             }
 
@@ -116,14 +151,51 @@ public class GameController : MonoBehaviour
 
                 if (GameManager.gameControllerInstance != null)
                 {
-                    GameManager.gameControllerInstance.gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
+                    gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
 
-                    GameManager.gameControllerInstance.gameState.soulsCRI = 0;
+                    gameState.soulsCRI = 0;
                     foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.earthSoulsCollector)
                     {
-                        GameManager.gameControllerInstance.gameState.soulsCRI += soulsCollector.actualProfit;
+                        gameState.soulsCRI += soulsCollector.actualProfit;
                     }
                 }
+            }
+            else
+            {
+                if (name.Contains("Bless"))
+                {
+                    gameState.birthRate = gameState.initialBirthRate;
+                    gameState.goodFaith = 0;
+                    foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.heavenSoulsCollector)
+                    {
+                        if (soulsCollector.level > 0)
+                        {
+                            gameState.birthRate += soulsCollector.birthRate;
+                            gameState.goodFaith += soulsCollector.goodFaith;
+                        }
+                    }
+                }
+                else if (name.Contains("Curse"))
+                {
+                    gameState.deathRate = gameState.initialDeathRate;
+                    gameState.badFaith = 0;
+                    foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.hellSoulsCollector)
+                    {
+                        if (soulsCollector.level > 0)
+                        {
+                            gameState.deathRate += soulsCollector.deathRate;
+                            gameState.badFaith += soulsCollector.badFaith;
+                        }
+                    }
+                }
+
+
+                gameState.faithLevel = 0.5f;
+                if ((gameState.goodFaith + gameState.badFaith) > 0)
+                    gameState.faithLevel = gameState.goodFaith / (gameState.goodFaith + gameState.badFaith);
+
+                gameState.blessingPointsPerSecond = gameState.faithLevel * gameState.soulsCRI;
+                gameState.cursePointsPerSecond = (1f - gameState.faithLevel) * gameState.soulsCRI;
             }
         }
 
@@ -180,6 +252,66 @@ public class GameController : MonoBehaviour
         }
 
         #endregion 
+
+        #region CalculateBlesses
+        private void CalculateBless1()
+        {
+            birthRate = 0.5f * level;
+            cost = 10 + Mathf.Pow((float)level, 2f);
+            goodFaith = 0.5f * level;
+        }
+        private void CalculateBless2()
+        {
+            birthRate = 0.1f * level;
+            cost = 10 + Mathf.Pow((float)level, 1.5f);
+            goodFaith = level;
+        }
+        private void CalculateBless3()
+        {
+            birthRate = 4f * (12f + level);
+            cost = 100 + Mathf.Pow((float)level, 1.5f);
+            goodFaith = 5f + 1.5f * level;
+        }
+        private void CalculateBless4()
+        {
+            birthRate = 2f * (200f + 2f * level);
+            cost = 100 + Mathf.Pow((float)level, 2f);
+            goodFaith = 3f * level + 10f;
+        }
+
+        #endregion
+
+        #region CalculateCurses
+
+        private void CalculateCurse1()
+        {
+            deathRate = 0.5f * level;
+            cost = 10 + Mathf.Pow((float)level, 2f);
+            badFaith = 0.5f * level;
+        }
+
+        private void CalculateCurse2()
+        {
+            deathRate = 0.1f * level;
+            cost = 10 + Mathf.Pow((float)level, 1.5f);
+            badFaith = level;
+        }
+
+        private void CalculateCurse3()
+        {
+            deathRate = 4f * (12f + level);
+            cost = 100 + Mathf.Pow((float)level, 1.5f);
+            badFaith = 5f + 0.5f * level;
+        }
+
+        private void CalculateCurse4()
+        {
+            deathRate = 2f * (200f + 2f * level);
+            cost = 1000 + Mathf.Pow((float)level, 2f);
+            badFaith = 10f + 3f * level;
+        }
+
+        #endregion
     }
 
     [System.Serializable]
@@ -190,8 +322,9 @@ public class GameController : MonoBehaviour
         [Header("Points")]
         public float clickAmount = 0;
         public float level = 0;
+        public float initialSoulsCollected = 1000;
         [SerializeField]
-        private float soulsCollected = 100;
+        private float soulsCollected = 0;
         public float SoulsCollected
         {
             get
@@ -204,16 +337,22 @@ public class GameController : MonoBehaviour
             }
         }
         public float blessingPoints = 0;
+        public float blessingPointsPerSecond = 0;
         public float cursePoints = 0;
+        public float cursePointsPerSecond = 0;
 
         [Space(5)]
         [Header("Game Info")]
         public float soulsCRI = 0;
         public float soulsCRC = 0;
+        public float initialDeathRate = 1;
         public float deathRate = 0;
+        public float initialBirthRate = 1;
         public float birthRate = 0;
         [Range(0f, 1f)]
         public float faithLevel = 0.5f;
+        public float badFaith = 0;
+        public float goodFaith = 0;
 
         #endregion
 
@@ -290,9 +429,10 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        gameState.SoulsCollected = gameState.initialSoulsCollected;
+
         // Tells Singleton GameManager that I'm the main GameController instance  
         GameManager.gameControllerInstance = this;
-        UpdateGUI();
 
         // Initiates all SoulsCollectorClicks
         CalculateSoulsCollectorLevel(earthSoulsCollectorClick);
@@ -309,7 +449,7 @@ public class GameController : MonoBehaviour
         {
             CalculateSoulsCollectorLevel(soulsCollector);
         }
-
+        UpdateGUI();
     }
 
     public void UpgradeSoulsCollectorLevel(SoulsCollector soulsCollector)
@@ -336,7 +476,7 @@ public class GameController : MonoBehaviour
     public void CollectSouls(int amount)
     {
         gameState.clickAmount++;
-        float soulsCollectedAmount = Mathf.Min(gameState.SoulsCollected, amount * gameState.soulsCRC);
+        float soulsCollectedAmount = Mathf.Min(gameState.SoulsCollected, amount * Mathf.Max(1, gameState.soulsCRC));
         if (soulsCollectedAmount > 0)
         {
             // Collect the Souls
@@ -374,12 +514,18 @@ public class GameController : MonoBehaviour
             infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
         }
 
-        string populationDisplay = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
+        string populationDisplay = "Population: " + GameManager.earthInstance.Population.ToString();
         string soulsDisplay = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
         string bpDisplay = "BP: " + Mathf.FloorToInt(gameState.blessingPoints).ToString();
         string cpDisplay = "CP: " + Mathf.FloorToInt(gameState.cursePoints).ToString();
         string scri = "SCRI: " + Mathf.FloorToInt(gameState.soulsCRI).ToString();
         string scrc = "SCRC: " + Mathf.FloorToInt(gameState.soulsCRC).ToString();
+
+        string bps = "BP/s: " + gameState.blessingPointsPerSecond.ToString();
+        string cps = "CP/s: " + gameState.cursePointsPerSecond.ToString();
+
+        string birthRate = "Birth/s: " + gameState.birthRate;
+        string deathRate = "Death/s: " + gameState.deathRate;
 
         // Temp
         infoDisplays[0].text = populationDisplay;
@@ -388,6 +534,16 @@ public class GameController : MonoBehaviour
         infoDisplays[3].text = cpDisplay;
         infoDisplays[4].text = scri;
         infoDisplays[5].text = scrc;
+        infoDisplays[6].text = bps;
+        infoDisplays[7].text = cps;
+        infoDisplays[8].text = birthRate;
+        infoDisplays[9].text = deathRate;
+
+        Slider faithLevel = GameManager.canvasInstance.GetComponentInChildren<Slider>();
+        if (faithLevel != null)
+        {
+            faithLevel.value = gameState.faithLevel;
+        }
 
         List<Text> genTexts = new List<Text>(infoDisplays);
         foreach (Text text in genTexts.FindAll(x => x.tag == "GenText"))
@@ -408,6 +564,8 @@ public class GameController : MonoBehaviour
     public void HandlePopulation()
     {
         GameManager.earthInstance.Population += gameState.birthRate;
+        gameState.blessingPoints += gameState.blessingPointsPerSecond;
+        gameState.cursePoints += gameState.cursePointsPerSecond;
 
         float deathAmount = Mathf.Min(GameManager.earthInstance.Population, gameState.deathRate);
         GameManager.earthInstance.Population -= deathAmount;
