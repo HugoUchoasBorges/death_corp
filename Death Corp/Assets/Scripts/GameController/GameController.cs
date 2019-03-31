@@ -29,11 +29,47 @@ public class GameController : MonoBehaviour
 
         #endregion
 
+        public bool CheckUpgradeAvailability()
+        {
+            // It means it's an Earth upgrade
+            if (name.Contains("Gen"))
+            {
+                if(GameManager.gameControllerInstance.gameState.SoulsCollected >= cost)
+                {
+                    GameManager.gameControllerInstance.gameState.SoulsCollected -= cost;
+                    return true;
+                }
+                return false;
+            }
+            if (name.Contains("Bless"))
+            {
+                if (GameManager.gameControllerInstance.gameState.blessingPoints > cost)
+                {
+                    GameManager.gameControllerInstance.gameState.blessingPoints -= cost;
+                    return true;
+                }
+                return false;
+            }
+            if (name.Contains("Curse"))
+            {
+                if (GameManager.gameControllerInstance.gameState.cursePoints > cost)
+                {
+                    GameManager.gameControllerInstance.gameState.cursePoints -= cost;
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
         public void UpgradeLevel()
         {
-            GameManager.gameControllerInstance.gameState.level++;
-            level++;
-            CalculateNextLevel();
+            if (CheckUpgradeAvailability())
+            {
+                GameManager.gameControllerInstance.gameState.level++;
+                level++;
+                CalculateNextLevel();
+            }
         }
 
         public void CalculateNextLevel()
@@ -315,7 +351,8 @@ public class GameController : MonoBehaviour
         infoDisplays[5].text = scrc;
 
         List<Text> genTexts = new List<Text>(infoDisplays);
-        foreach (Text text in genTexts.FindAll(x => x.tag == "GenText")){
+        foreach (Text text in genTexts.FindAll(x => x.tag == "GenText"))
+        {
             SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(text.name);
 
             if (soulsCollector == null)

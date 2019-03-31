@@ -77,8 +77,176 @@ MonoBehaviour:
     x100: 0
     x500: 0
     actualProfit: 0
-  earthSoulsCollector: []
-  heavenSoulsCollector: []
-  hellSoulsCollector: []
+  earthSoulsCollector:
+  - name: Gen2
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Gen3
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Gen4
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Gen5
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  heavenSoulsCollector:
+  - name: Bless1
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Bless2
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Bless3
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Bless4
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  hellSoulsCollector:
+  - name: Curse1
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Curse2
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Curse3
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  - name: Curse4
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
   achievements: []
   tickTime: 1

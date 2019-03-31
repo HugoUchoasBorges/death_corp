@@ -9,9 +9,7 @@ public class Canvas : MonoBehaviour
         GameManager.canvasInstance = this;
     }
 
-    #region UpgradeGen Methods
-
-    public void UpgradeGen(string name)
+    public void UpgradeSoulCollector(string name)
     {
         GameController.SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(name);
 
@@ -22,14 +20,31 @@ public class Canvas : MonoBehaviour
         GameManager.gameControllerInstance.UpdateGUI();
     }
 
+    #region UpgradeGen Methods
+
     public void UpgradeGen1()
     {
-        UpgradeGen("Gen1");
+        UpgradeSoulCollector("Gen1");
     }
 
     public void UpgradeGen2()
     {
-        UpgradeGen("Gen2");
+        UpgradeSoulCollector("Gen2");
+    }
+
+    public void UpgradeGen3()
+    {
+        UpgradeSoulCollector("Gen3");
+    }
+
+    public void UpgradeGen4()
+    {
+        UpgradeSoulCollector("Gen4");
+    }
+
+    public void UpgradeGen5()
+    {
+        UpgradeSoulCollector("Gen5");
     }
 
     #endregion
