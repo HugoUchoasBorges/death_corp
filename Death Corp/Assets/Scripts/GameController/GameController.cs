@@ -78,6 +78,12 @@ public class GameController : MonoBehaviour
             if (GameManager.gameControllerInstance != null)
             {
                 GameManager.gameControllerInstance.gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
+
+                GameManager.gameControllerInstance.gameState.soulsCRI = 0;
+                foreach(SoulsCollector soulsCollector in GameManager.gameControllerInstance.earthSoulsCollector)
+                {
+                    GameManager.gameControllerInstance.gameState.soulsCRI += soulsCollector.actualProfit;
+                }
             }
         }
 
@@ -273,12 +279,16 @@ public class GameController : MonoBehaviour
         string soulsDisplay = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
         string bpDisplay = "BP: " + Mathf.FloorToInt(gameState.blessingPoints).ToString();
         string cpDisplay = "CP: " + Mathf.FloorToInt(gameState.cursePoints).ToString();
+        string scri = "SCRI: " + Mathf.FloorToInt(gameState.soulsCRI).ToString();
+        string scrc = "SCRC: " + Mathf.FloorToInt(gameState.soulsCRC).ToString();
 
         // Temp
         infoDisplays[0].text = populationDisplay;
         infoDisplays[1].text = soulsDisplay;
         infoDisplays[2].text = bpDisplay;
         infoDisplays[3].text = cpDisplay;
+        infoDisplays[4].text = scri;
+        infoDisplays[5].text = scrc;
     }
 
     /// <summary>
