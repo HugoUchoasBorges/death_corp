@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
             // It means it's an Earth upgrade
             if (name.Contains("Gen"))
             {
-                if(GameManager.gameControllerInstance.gameState.SoulsCollected >= cost)
+                if (GameManager.gameControllerInstance.gameState.SoulsCollected >= cost)
                 {
                     GameManager.gameControllerInstance.gameState.SoulsCollected -= cost;
                     return true;
@@ -97,29 +97,32 @@ public class GameController : MonoBehaviour
                     break;
             }
 
-            if (level == 0)
-                actualProfit = 0;
-            else if (level < 10)
-                actualProfit = profit;
-            else if (level < 25)
-                actualProfit = x10;
-            else if (level < 50)
-                actualProfit = x25;
-            else if (level < 100)
-                actualProfit = x50;
-            else if (level < 500)
-                actualProfit = x100;
-            else
-                actualProfit = x500;
-
-            if (GameManager.gameControllerInstance != null)
+            if (name.Contains("Gen"))
             {
-                GameManager.gameControllerInstance.gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
+                if (level == 0)
+                    actualProfit = 0;
+                else if (level < 10)
+                    actualProfit = profit;
+                else if (level < 25)
+                    actualProfit = x10;
+                else if (level < 50)
+                    actualProfit = x25;
+                else if (level < 100)
+                    actualProfit = x50;
+                else if (level < 500)
+                    actualProfit = x100;
+                else
+                    actualProfit = x500;
 
-                GameManager.gameControllerInstance.gameState.soulsCRI = 0;
-                foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.earthSoulsCollector)
+                if (GameManager.gameControllerInstance != null)
                 {
-                    GameManager.gameControllerInstance.gameState.soulsCRI += soulsCollector.actualProfit;
+                    GameManager.gameControllerInstance.gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
+
+                    GameManager.gameControllerInstance.gameState.soulsCRI = 0;
+                    foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.earthSoulsCollector)
+                    {
+                        GameManager.gameControllerInstance.gameState.soulsCRI += soulsCollector.actualProfit;
+                    }
                 }
             }
         }
@@ -135,10 +138,46 @@ public class GameController : MonoBehaviour
             x100 = 50 * profit;
             x500 = 100 * profit;
         }
-        private void CalculateGen2() { }
-        private void CalculateGen3() { }
-        private void CalculateGen4() { }
-        private void CalculateGen5() { }
+        private void CalculateGen2()
+        {
+            profit = 0.1f * level;
+            cost = 10 + Mathf.Pow((float)level, 1.5f);
+            x10 = 2 * profit;
+            x25 = 4 * profit;
+            x50 = 8 * profit;
+            x100 = 16 * profit;
+            x500 = 32 * profit;
+        }
+        private void CalculateGen3()
+        {
+            profit = 4 * (12f + level);
+            cost = 100 + Mathf.Pow((float)level, 1.5f);
+            x10 = 2 * profit;
+            x25 = 4 * profit;
+            x50 = 8 * profit;
+            x100 = 16 * profit;
+            x500 = 32 * profit;
+        }
+        private void CalculateGen4()
+        {
+            profit = 2f * (200 + 2 * level);
+            cost = 1000 + Mathf.Pow((float)level, 2f);
+            x10 = 2 * profit;
+            x25 = 5 * profit;
+            x50 = 10 * profit;
+            x100 = 20 * profit;
+            x500 = 50 * profit;
+        }
+        private void CalculateGen5()
+        {
+            profit = 5000f + 500 * level;
+            cost = 5000f + 2f * Mathf.Pow((float)level, 1.5f);
+            x10 = 1.5f * profit;
+            x25 = 3 * profit;
+            x50 = 6 * profit;
+            x100 = 10 * profit;
+            x500 = 20 * profit;
+        }
 
         #endregion 
     }
