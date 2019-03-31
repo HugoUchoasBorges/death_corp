@@ -239,6 +239,21 @@ Prefab:
       propertyPath: gameState.soulsCollected
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: gameState.faithLevel
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: gameState.deathRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: gameState.birthRate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ebf20b7a1a111d948872a484aa4ee272, type: 2}
   m_IsPrefabParent: 0

@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     public class State
     {
         [Header("Points")]
-        public int clickAmount = 0;
+        public float clickAmount = 0;
         [SerializeField]
         private float soulsCollected = 100;
         public float SoulsCollected
@@ -21,16 +21,17 @@ public class GameController : MonoBehaviour
                 soulsCollected = Mathf.Max(value, 0);
             }
         }
-        public int blessingPoints = 0;
-        public int cursePoints = 0;
+        public float blessingPoints = 0;
+        public float cursePoints = 0;
 
         [Space(5)]
         [Header("Game Info")]
-        public int soulsCRI = 0;
-        public int soulsCRC = 0;
+        public float soulsCRI = 0;
+        public float soulsCRC = 0;
         public float deathRate = 0;
         public float birthRate = 0;
-        public int faithLevel = 0;
+        [Range(0f, 1f)]
+        public float faithLevel = 0.5f;
 
         public bool checkAchievementState(State state)
         {
@@ -106,6 +107,11 @@ public class GameController : MonoBehaviour
             // Collect the Souls
             gameState.SoulsCollected -= soulsCollectedAmount;
             gameState.clickAmount++;
+
+            int blessingPoints = Mathf.RoundToInt(soulsCollectedAmount * gameState.faithLevel);
+            int cursingPoints = Mathf.FloorToInt(soulsCollectedAmount) - blessingPoints;
+            gameState.blessingPoints += blessingPoints;
+            gameState.cursePoints += cursingPoints;
 
             FloatingPopupController.CreateFloatingPopup();
             UpdateGUI();
