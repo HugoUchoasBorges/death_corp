@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Earth : MonoBehaviour
 {
@@ -71,6 +70,7 @@ public class Earth : MonoBehaviour
         }
         GameManager.mousePointerInstance.UnClick();
     }
+
     private void OnMouseDown() 
     {
         if (animator)
@@ -81,6 +81,11 @@ public class Earth : MonoBehaviour
     }
 
     #endregion
+
+    public void Click()
+    {
+        SceneManager.LoadScene("PeopleGenerator");
+    }
 
     private void Rotate()
     {

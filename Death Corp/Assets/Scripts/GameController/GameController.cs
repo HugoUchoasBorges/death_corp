@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -352,5 +353,15 @@ public class GameController : MonoBehaviour
             currentTime = 0;
             HandlePopulation();
         }
+    }
+
+    public void ShowCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
+    public void HideCredits()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
