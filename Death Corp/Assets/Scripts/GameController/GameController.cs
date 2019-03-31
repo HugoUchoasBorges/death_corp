@@ -247,7 +247,7 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
-    /// Collect 1 soul
+    /// Collects 1 soul
     /// </summary>
     public void CollectSouls()
     {
@@ -255,7 +255,7 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
-    /// Collect Souls
+    /// Collects Souls
     /// </summary>
     /// <param name="amount">Amount of Souls to Collect</param>
     public void CollectSouls(int amount)
