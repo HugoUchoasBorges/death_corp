@@ -8,10 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 706473151cb42c84186342e61cb050b1
-  - enabled: 1
-    path: Assets/Scenes/PeopleGenerator.unity
+  - enabled: 0
+    path: Assets/Scenes/Game2.unity
     guid: f5009f2fae2ab7a43b49c73fa3189824
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: fb9454753d4e1974eb864320b683d6d2
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 33b286402941b494bbec3591c791066d
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 602cb3f4c852bd6418fd4726f537685a
   m_configObjects: {}

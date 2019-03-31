@@ -9,11 +9,6 @@ public class Canvas : MonoBehaviour
         GameManager.canvasInstance = this;
     }
 
-    public void lol(string a, bool b)
-    {
-
-    }
-
     public void UpgradeSoulCollector(string name, bool cp)
     {
         GameController.SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(name);

@@ -182,7 +182,7 @@ public class GameController : MonoBehaviour
                 if (name.Contains("Bless"))
                 {
                     gameState.birthRate = gameState.initialBirthRate;
-                    gameState.goodFaith = 0;
+                    gameState.goodFaith = gameState.startGoodFaith;
                     foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.heavenSoulsCollector)
                     {
                         if (soulsCollector.level > 0)
@@ -195,7 +195,7 @@ public class GameController : MonoBehaviour
                 else if (name.Contains("Curse"))
                 {
                     gameState.deathRate = gameState.initialDeathRate;
-                    gameState.badFaith = 0;
+                    gameState.badFaith = gameState.startBadFaith;
                     foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.hellSoulsCollector)
                     {
                         if (soulsCollector.level > 0)
@@ -370,6 +370,8 @@ public class GameController : MonoBehaviour
         public float faithLevel = 0.5f;
         public float badFaith = 0;
         public float goodFaith = 0;
+        public float startGoodFaith = 1;
+        public float startBadFaith = 1;
 
         #endregion
 
@@ -526,6 +528,12 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void UpdateGUI()
     {
+        if (GameManager.canvasInstance == null)
+        {
+            return;
+        }
+
+
         if (infoDisplays == null && GameManager.canvasInstance != null)
         {
             infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
@@ -576,6 +584,15 @@ public class GameController : MonoBehaviour
                 throw new System.Exception("Souls Collection '" + name + "' not found");
 
             text.text = "LVL: " + soulsCollector.level;
+        }
+        foreach (Text text in genTexts.FindAll(x => x.tag == "Cost"))
+        {
+            SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(text.name);
+
+            if (soulsCollector == null)
+                throw new System.Exception("Souls Collection '" + name + "' not found");
+
+            text.text = "$ " + soulsCollector.cost;
         }
     }
 

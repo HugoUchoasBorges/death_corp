@@ -86,7 +86,7 @@ public class Earth : MonoBehaviour
 
     public void Click()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Tutorial");
     }
 
     private void Rotate()
