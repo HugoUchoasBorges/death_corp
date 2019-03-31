@@ -195,6 +195,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &924059401 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224086064150560158, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1915758228}
 --- !u!1001 &1150468259
 Prefab:
   m_ObjectHideFlags: 0
@@ -202,6 +207,21 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: hellSoulsCollector.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: earthSoulsCollector.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: heavenSoulsCollector.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4955046483202902, guid: ebf20b7a1a111d948872a484aa4ee272, type: 2}
       propertyPath: m_LocalPosition.x
       value: -3.4731522
@@ -233,6 +253,71 @@ Prefab:
     - target: {fileID: 4955046483202902, guid: ebf20b7a1a111d948872a484aa4ee272, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: earthSoulsCollectorClick.name
+      value: Gen1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: earthSoulsCollector.Array.data[0].name
+      value: Gen2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: earthSoulsCollector.Array.data[1].name
+      value: Gen3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: earthSoulsCollector.Array.data[2].name
+      value: Gen4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: earthSoulsCollector.Array.data[3].name
+      value: Gen5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: heavenSoulsCollector.Array.data[0].name
+      value: Bless1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: heavenSoulsCollector.Array.data[1].name
+      value: Bless2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: heavenSoulsCollector.Array.data[2].name
+      value: Bless3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: heavenSoulsCollector.Array.data[3].name
+      value: Bless4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: hellSoulsCollector.Array.data[0].name
+      value: Curse1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: hellSoulsCollector.Array.data[1].name
+      value: Curse2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: hellSoulsCollector.Array.data[2].name
+      value: Curse3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796528970668322, guid: ebf20b7a1a111d948872a484aa4ee272,
+        type: 2}
+      propertyPath: hellSoulsCollector.Array.data[3].name
+      value: Curse4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ebf20b7a1a111d948872a484aa4ee272, type: 2}
@@ -304,6 +389,80 @@ Transform:
   m_PrefabParentObject: {fileID: 4157059751583662, guid: b13dbc6d4cadef7478ce619fb5b54940,
     type: 2}
   m_PrefabInternal: {fileID: 2078994751}
+--- !u!1 &1773449908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1773449909}
+  - component: {fileID: 1773449911}
+  - component: {fileID: 1773449910}
+  m_Layer: 5
+  m_Name: Gen1LevelText
+  m_TagString: GenText
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1773449909
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1773449908}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 924059401}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 142.00002, y: -0}
+  m_SizeDelta: {x: 180.7, y: 43}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1773449910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1773449908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 1
+    m_BestFit: 1
+    m_MinSize: 2
+    m_MaxSize: 100
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'LVL: 0'
+--- !u!222 &1773449911
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1773449908}
 --- !u!1001 &1881838796
 Prefab:
   m_ObjectHideFlags: 0
@@ -462,6 +621,45 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 888245254}
+    - target: {fileID: 1890649031243610, guid: 58d129e2b8814cc4e9a14a6411e8c6b9, type: 2}
+      propertyPath: m_Name
+      value: Gen1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114545141800503772, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_Text
+      value: Gen1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224086064150560158, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -325
+      objectReference: {fileID: 0}
+    - target: {fileID: 224086064150560158, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 103.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224086064150560158, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 56.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 224086064150560158, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -228
+      objectReference: {fileID: 0}
+    - target: {fileID: 114812866917280460, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeGen1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224086064150560158, guid: 58d129e2b8814cc4e9a14a6411e8c6b9,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 58d129e2b8814cc4e9a14a6411e8c6b9, type: 2}
   m_IsPrefabParent: 0
@@ -503,6 +701,11 @@ Prefab:
     - target: {fileID: 4157059751583662, guid: b13dbc6d4cadef7478ce619fb5b54940, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212239884478310840, guid: b13dbc6d4cadef7478ce619fb5b54940,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b13dbc6d4cadef7478ce619fb5b54940, type: 2}

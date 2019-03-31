@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
@@ -80,7 +81,7 @@ public class GameController : MonoBehaviour
                 GameManager.gameControllerInstance.gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
 
                 GameManager.gameControllerInstance.gameState.soulsCRI = 0;
-                foreach(SoulsCollector soulsCollector in GameManager.gameControllerInstance.earthSoulsCollector)
+                foreach (SoulsCollector soulsCollector in GameManager.gameControllerInstance.earthSoulsCollector)
                 {
                     GameManager.gameControllerInstance.gameState.soulsCRI += soulsCollector.actualProfit;
                 }
@@ -189,6 +190,29 @@ public class GameController : MonoBehaviour
 
     #endregion
 
+    public SoulsCollector GetSoulsCollectorByName(string name)
+    {
+        if (earthSoulsCollectorClick.name == name)
+            return earthSoulsCollectorClick;
+        foreach (SoulsCollector soulsCollector in earthSoulsCollector)
+        {
+            if (soulsCollector.name == name)
+                return soulsCollector;
+        }
+        foreach (SoulsCollector soulsCollector in hellSoulsCollector)
+        {
+            if (soulsCollector.name == name)
+                return soulsCollector;
+        }
+        foreach (SoulsCollector soulsCollector in heavenSoulsCollector)
+        {
+            if (soulsCollector.name == name)
+                return soulsCollector;
+        }
+
+        return null;
+    }
+
     private void Awake()
     {
         // Tells Singleton GameManager that I'm the main GameController instance  
@@ -289,6 +313,16 @@ public class GameController : MonoBehaviour
         infoDisplays[3].text = cpDisplay;
         infoDisplays[4].text = scri;
         infoDisplays[5].text = scrc;
+
+        List<Text> genTexts = new List<Text>(infoDisplays);
+        foreach (Text text in genTexts.FindAll(x => x.tag == "GenText")){
+            SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(text.name);
+
+            if (soulsCollector == null)
+                throw new System.Exception("Souls Collection '" + name + "' not found");
+
+            text.text = "LVL: " + soulsCollector.level;
+        }
     }
 
     /// <summary>
