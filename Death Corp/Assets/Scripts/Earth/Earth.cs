@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Earth : MonoBehaviour
 {
@@ -71,17 +70,24 @@ public class Earth : MonoBehaviour
         {
             animator.SetBool("MouseDown", false);
         }
-        GameManager.mousePointerInstance.Click();
+        GameManager.mousePointerInstance.UnClick();
     }
-    private void OnMouseDown()
+
+    private void OnMouseDown() 
     {
         if (animator)
         {
             animator.SetBool("MouseDown", true);
         }
+        GameManager.mousePointerInstance.Click();
     }
 
     #endregion
+
+    public void Click()
+    {
+        SceneManager.LoadScene("PeopleGenerator");
+    }
 
     private void Rotate()
     {
@@ -93,6 +99,6 @@ public class Earth : MonoBehaviour
 
     private void Update()
     {
-        Rotate();
+        // Rotate();
     }
 }
