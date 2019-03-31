@@ -69,14 +69,15 @@ public class Earth : MonoBehaviour
         {
             animator.SetBool("MouseDown", false);
         }
-        GameManager.mousePointerInstance.Click();
+        GameManager.mousePointerInstance.UnClick();
     }
-    private void OnMouseDown()
+    private void OnMouseDown() 
     {
         if (animator)
         {
             animator.SetBool("MouseDown", true);
         }
+        GameManager.mousePointerInstance.Click();
     }
 
     #endregion
@@ -91,6 +92,6 @@ public class Earth : MonoBehaviour
 
     private void Update()
     {
-        Rotate();
+        // Rotate();
     }
 }
