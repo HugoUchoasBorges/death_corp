@@ -7,4 +7,9 @@ public class Canvas : MonoBehaviour {
     {
         GameManager.canvasInstance = this;
     }
+
+    public void UpgradeEarthSoulsCollectorClick()
+    {
+        GameManager.gameControllerInstance.UpgradeSoulsCollectorLevel(GameManager.gameControllerInstance.earthSoulsCollectorClick);
+    }
 }

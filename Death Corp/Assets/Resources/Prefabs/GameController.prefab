@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState:
     clickAmount: 0
+    level: 0
     soulsCollected: 100
     blessingPoints: 0
     cursePoints: 0
@@ -60,19 +61,24 @@ MonoBehaviour:
     soulsCRC: 0
     deathRate: 0.25
     birthRate: 1
-    faithLevel: 0
-  multiplier: 1
-  achievements:
-  - name: Primeira Conquista
-    message: Primeiro dia de Trabalho
-    requiredState:
-      clickAmount: 5
-      soulsCollected: 100
-      blessingPoints: 0
-      cursePoints: 0
-      soulsCRI: 0
-      soulsCRC: 0
-      deathRate: 0
-      birthRate: 0
-      faithLevel: 0
+    faithLevel: 0.5
+  earthSoulsCollectorClick:
+    name: Gen1
+    level: 0
+    profit: 0
+    cost: 0
+    soulsCRI: 0
+    soulsCRC: 0
+    goodFaith: 0
+    badFaith: 0
+    x10: 0
+    x25: 0
+    x50: 0
+    x100: 0
+    x500: 0
+    actualProfit: 0
+  earthSoulsCollector: []
+  heavenSoulsCollector: []
+  hellSoulsCollector: []
+  achievements: []
   tickTime: 1

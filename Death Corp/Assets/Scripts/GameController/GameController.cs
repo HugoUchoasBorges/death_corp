@@ -8,17 +8,103 @@ public class GameController : MonoBehaviour
     [System.Serializable]
     public class SoulsCollector
     {
-        public int level = 1;
-        public int cost = 1000;
+        #region SoulsCollector Variables
+
+        public string name;
+        public int level = 0;
+        public float profit = 0;
+        public float cost = 0;
         public float soulsCRI = 0;
         public float soulsCRC = 0;
-        public float goodFaith;
-        public float badFaith;
+        public float goodFaith = 0;
+        public float badFaith = 0;
+
+        public float x10 = 0;
+        public float x25 = 0;
+        public float x50 = 0;
+        public float x100 = 0;
+        public float x500 = 0;
+        public float actualProfit = 0;
+
+        #endregion
+
+        public void UpgradeLevel()
+        {
+            GameManager.gameControllerInstance.gameState.level++;
+            level++;
+            CalculateNextLevel();
+        }
+
+        public void CalculateNextLevel()
+        {
+            switch (name)
+            {
+                case "Gen1":
+                    CalculateGen1();
+                    break;
+                case "Gen2":
+                    CalculateGen2();
+                    break;
+                case "Gen3":
+                    CalculateGen3();
+                    break;
+                case "Gen4":
+                    CalculateGen4();
+                    break;
+                case "Gen5":
+                    CalculateGen5();
+                    break;
+
+                default:
+                    CalculateGen1();
+                    break;
+            }
+
+            if (level == 0)
+                actualProfit = 0;
+            else if (level < 10)
+                actualProfit = profit;
+            else if (level < 25)
+                actualProfit = x10;
+            else if (level < 50)
+                actualProfit = x25;
+            else if (level < 100)
+                actualProfit = x50;
+            else if (level < 500)
+                actualProfit = x100;
+            else
+                actualProfit = x500;
+
+            if (GameManager.gameControllerInstance != null)
+            {
+                GameManager.gameControllerInstance.gameState.soulsCRC = GameManager.gameControllerInstance.earthSoulsCollectorClick.actualProfit;
+            }
+        }
+
+        #region CalculateGens
+        private void CalculateGen1()
+        {
+            profit = 2 * level;
+            cost = 10 + Mathf.Pow((float)level, 2f);
+            x10 = 5 * profit;
+            x25 = 10 * profit;
+            x50 = 25 * profit;
+            x100 = 50 * profit;
+            x500 = 100 * profit;
+        }
+        private void CalculateGen2() { }
+        private void CalculateGen3() { }
+        private void CalculateGen4() { }
+        private void CalculateGen5() { }
+
+        #endregion 
     }
 
     [System.Serializable]
     public class State
     {
+        #region State Variables
+
         [Header("Points")]
         public float clickAmount = 0;
         public float level = 0;
@@ -47,6 +133,8 @@ public class GameController : MonoBehaviour
         [Range(0f, 1f)]
         public float faithLevel = 0.5f;
 
+        #endregion
+
         public bool checkAchievementState(State state)
         {
             System.Reflection.FieldInfo[] fields = this.GetType().GetFields();
@@ -73,14 +161,10 @@ public class GameController : MonoBehaviour
     public State gameState;
 
     // Souls Collectors
-    public SoulsCollector earthSoulsCollector;
-    public SoulsCollector heavenSoulsCollector;
-    public SoulsCollector hellSoulsCollector;
-
-    [Space(5)]
-    [Header("PowerUps")]
-    [SerializeField]
-    private int multiplier = 1;
+    public SoulsCollector earthSoulsCollectorClick;
+    public SoulsCollector[] earthSoulsCollector;
+    public SoulsCollector[] heavenSoulsCollector;
+    public SoulsCollector[] hellSoulsCollector;
 
     [Space(5)]
     public Achievement[] achievements;
@@ -104,6 +188,32 @@ public class GameController : MonoBehaviour
         // Tells Singleton GameManager that I'm the main GameController instance  
         GameManager.gameControllerInstance = this;
         UpdateGUI();
+
+        // Initiates all SoulsCollectorClicks
+        CalculateSoulsCollectorLevel(earthSoulsCollectorClick);
+
+        foreach (SoulsCollector soulsCollector in earthSoulsCollector)
+        {
+            CalculateSoulsCollectorLevel(soulsCollector);
+        }
+        foreach (SoulsCollector soulsCollector in hellSoulsCollector)
+        {
+            CalculateSoulsCollectorLevel(soulsCollector);
+        }
+        foreach (SoulsCollector soulsCollector in heavenSoulsCollector)
+        {
+            CalculateSoulsCollectorLevel(soulsCollector);
+        }
+
+    }
+
+    public void UpgradeSoulsCollectorLevel(SoulsCollector soulsCollector)
+    {
+        soulsCollector.UpgradeLevel();
+    }
+    public void CalculateSoulsCollectorLevel(SoulsCollector soulsCollector)
+    {
+        soulsCollector.CalculateNextLevel();
     }
 
     /// <summary>
@@ -120,13 +230,12 @@ public class GameController : MonoBehaviour
     /// <param name="amount">Amount of Souls to Collect</param>
     public void CollectSouls(int amount)
     {
-
-        float soulsCollectedAmount = Mathf.Min(GameManager.earthInstance.Population, amount * multiplier);
+        gameState.clickAmount++;
+        float soulsCollectedAmount = Mathf.Min(gameState.SoulsCollected, amount * gameState.soulsCRC);
         if (soulsCollectedAmount > 0)
         {
             // Collect the Souls
             gameState.SoulsCollected -= soulsCollectedAmount;
-            gameState.clickAmount++;
 
             int blessingPoints = Mathf.RoundToInt(soulsCollectedAmount * gameState.faithLevel);
             int cursingPoints = Mathf.FloorToInt(soulsCollectedAmount) - blessingPoints;
@@ -160,9 +269,16 @@ public class GameController : MonoBehaviour
             infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
         }
 
+        string populationDisplay = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
+        string soulsDisplay = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
+        string bpDisplay = "BP: " + Mathf.FloorToInt(gameState.blessingPoints).ToString();
+        string cpDisplay = "CP: " + Mathf.FloorToInt(gameState.cursePoints).ToString();
+
         // Temp
-        infoDisplays[0].text = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
-        infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
+        infoDisplays[0].text = populationDisplay;
+        infoDisplays[1].text = soulsDisplay;
+        infoDisplays[2].text = bpDisplay;
+        infoDisplays[3].text = cpDisplay;
     }
 
     /// <summary>
