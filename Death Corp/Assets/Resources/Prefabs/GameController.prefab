@@ -53,13 +53,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState:
     clickAmount: 0
-    soulsCollected: 0
+    soulsCollected: 100
     blessingPoints: 0
     cursePoints: 0
     soulsCRI: 0
     soulsCRC: 0
-    deathRate: 0
-    birthRate: 0
+    deathRate: 0.25
+    birthRate: 1
     faithLevel: 0
   multiplier: 1
   achievements:
@@ -67,7 +67,7 @@ MonoBehaviour:
     message: Primeiro dia de Trabalho
     requiredState:
       clickAmount: 5
-      soulsCollected: 0
+      soulsCollected: 100
       blessingPoints: 0
       cursePoints: 0
       soulsCRI: 0
@@ -75,3 +75,4 @@ MonoBehaviour:
       deathRate: 0
       birthRate: 0
       faithLevel: 0
+  tickTime: 1

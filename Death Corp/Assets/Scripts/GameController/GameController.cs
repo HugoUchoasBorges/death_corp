@@ -8,7 +8,19 @@ public class GameController : MonoBehaviour
     {
         [Header("Points")]
         public int clickAmount = 0;
-        public float soulsCollected = 0;
+        [SerializeField]
+        private float soulsCollected = 100;
+        public float SoulsCollected
+        {
+            get
+            {
+                return soulsCollected;
+            }
+            set
+            {
+                soulsCollected = Mathf.Max(value, 0);
+            }
+        }
         public int blessingPoints = 0;
         public int cursePoints = 0;
 
@@ -90,8 +102,7 @@ public class GameController : MonoBehaviour
         float soulsCollectedAmount = Mathf.Min(GameManager.earthInstance.Population, amount * multiplier);
         if (soulsCollectedAmount > 0)
         {
-            GameManager.earthInstance.Population -= soulsCollectedAmount;
-            gameState.soulsCollected += soulsCollectedAmount;
+            gameState.SoulsCollected += soulsCollectedAmount;
             gameState.clickAmount++;
 
             FloatingPopupController.CreateFloatingPopup();
@@ -119,7 +130,7 @@ public class GameController : MonoBehaviour
 
         // Temp
         infoDisplays[0].text = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
-        infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.soulsCollected).ToString();
+        infoDisplays[1].text = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
     }
 
     /// <summary>
@@ -128,21 +139,26 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void HandlePopulation()
     {
-        currentTime += Time.deltaTime;
-        currentTimeInSeconds = (int)currentTime % 60;
-        if (currentTimeInSeconds >= tickTime)
-        {
-            currentTime = 0;
-            GameManager.earthInstance.Population += (gameState.birthRate - gameState.deathRate);
-            gameState.soulsCollected += gameState.deathRate;
+        GameManager.earthInstance.Population += gameState.birthRate;
 
-            UpdateGUI();
-        }
+        float deathAmount = Mathf.Min(GameManager.earthInstance.Population, gameState.deathRate);
+        GameManager.earthInstance.Population -= deathAmount;
+        gameState.SoulsCollected += deathAmount;
+
+        UpdateGUI();
     }
 
 
     private void FixedUpdate()
     {
-        HandlePopulation();
+        currentTime += Time.deltaTime;
+        currentTimeInSeconds = (int)currentTime % 60;
+
+        if (currentTimeInSeconds >= tickTime)
+        {
+            // Every tickTime Seconds
+            currentTime = 0;
+            HandlePopulation();
+        }
     }
 }

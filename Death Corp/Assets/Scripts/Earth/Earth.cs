@@ -18,7 +18,7 @@ public class Earth : MonoBehaviour
     [Space(5)]
     [Header("Earth Info")]
     [SerializeField]
-    private float population = 0;
+    private float population = 10000;
 
     public float Population {
         get {
@@ -26,7 +26,7 @@ public class Earth : MonoBehaviour
         }
 
         set {
-            population = value;
+            population = Mathf.Max(value, 0);
         }
     }
 
