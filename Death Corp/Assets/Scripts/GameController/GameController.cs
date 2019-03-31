@@ -33,16 +33,33 @@ public class GameController : MonoBehaviour
 
         public bool CheckUpgradeAvailability()
         {
+            return CheckUpgradeAvailability(false);
+        }
+
+        public bool CheckUpgradeAvailability(bool cp)
+        {
             GameController.State gameState = GameManager.gameControllerInstance.gameState;
 
             // It means it's an Earth upgrade
             if (name.Contains("Gen"))
             {
-                if (gameState.SoulsCollected >= cost)
+                if (!cp)
                 {
-                    gameState.SoulsCollected -= cost;
-                    return true;
+                    if (gameState.blessingPoints >= cost)
+                    {
+                        gameState.blessingPoints -= cost;
+                        return true;
+                    }
                 }
+                else
+                {
+                    if (gameState.cursePoints >= cost)
+                    {
+                        gameState.cursePoints -= cost;
+                        return true;
+                    }
+                }
+
                 return false;
             }
             if (name.Contains("Bless"))
@@ -58,7 +75,6 @@ public class GameController : MonoBehaviour
             {
                 if (gameState.cursePoints >= cost)
                 {
-                    Debug.Log("Curse True");
                     gameState.cursePoints -= cost;
                     return true;
                 }
@@ -67,9 +83,9 @@ public class GameController : MonoBehaviour
             return false;
         }
 
-        public void UpgradeLevel()
+        public void UpgradeLevel(bool cp)
         {
-            if (CheckUpgradeAvailability())
+            if (CheckUpgradeAvailability(cp))
             {
                 GameManager.gameControllerInstance.gameState.level++;
                 level++;
@@ -452,9 +468,9 @@ public class GameController : MonoBehaviour
         UpdateGUI();
     }
 
-    public void UpgradeSoulsCollectorLevel(SoulsCollector soulsCollector)
+    public void UpgradeSoulsCollectorLevel(SoulsCollector soulsCollector, bool cp)
     {
-        soulsCollector.UpgradeLevel();
+        soulsCollector.UpgradeLevel(cp);
     }
     public void CalculateSoulsCollectorLevel(SoulsCollector soulsCollector)
     {
@@ -509,9 +525,14 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void UpdateGUI()
     {
-        if (infoDisplays == null)
+        if (infoDisplays == null && GameManager.canvasInstance != null)
         {
             infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
+        }
+
+        if(infoDisplays == null)
+        {
+            return;
         }
 
         string populationDisplay = "Population: " + GameManager.earthInstance.Population.ToString();
