@@ -82,6 +82,7 @@ public class GameController : MonoBehaviour
     {
         // Tells Singleton GameManager that I'm the main GameController instance  
         GameManager.gameControllerInstance = this;
+        UpdateGUI();
     }
 
     /// <summary>
@@ -102,7 +103,8 @@ public class GameController : MonoBehaviour
         float soulsCollectedAmount = Mathf.Min(GameManager.earthInstance.Population, amount * multiplier);
         if (soulsCollectedAmount > 0)
         {
-            gameState.SoulsCollected += soulsCollectedAmount;
+            // Collect the Souls
+            gameState.SoulsCollected -= soulsCollectedAmount;
             gameState.clickAmount++;
 
             FloatingPopupController.CreateFloatingPopup();
