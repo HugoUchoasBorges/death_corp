@@ -518,14 +518,14 @@ public class GameController : MonoBehaviour
         string soulsDisplay = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
         string bpDisplay = "BP: " + Mathf.FloorToInt(gameState.blessingPoints).ToString();
         string cpDisplay = "CP: " + Mathf.FloorToInt(gameState.cursePoints).ToString();
-        string scri = "SCRI: " + Mathf.FloorToInt(gameState.soulsCRI).ToString();
+        string scri = "SCRI/s: " + gameState.soulsCRI.ToString();
         string scrc = "SCRC: " + Mathf.FloorToInt(gameState.soulsCRC).ToString();
 
         string bps = "BP/s: " + gameState.blessingPointsPerSecond.ToString();
         string cps = "CP/s: " + gameState.cursePointsPerSecond.ToString();
 
-        string birthRate = "Birth/s: " + gameState.birthRate;
-        string deathRate = "Death/s: " + gameState.deathRate;
+        string birthRate = "Birth/s: " + gameState.birthRate.ToString();
+        string deathRate = "Death/s: " + gameState.deathRate.ToString();
 
         // Temp
         infoDisplays[0].text = populationDisplay;
@@ -567,7 +567,7 @@ public class GameController : MonoBehaviour
         gameState.blessingPoints += gameState.blessingPointsPerSecond;
         gameState.cursePoints += gameState.cursePointsPerSecond;
 
-        float deathAmount = Mathf.Min(GameManager.earthInstance.Population, gameState.deathRate);
+        float deathAmount = Mathf.Min(GameManager.earthInstance.Population, gameState.deathRate + gameState.soulsCRI);
         GameManager.earthInstance.Population -= deathAmount;
         gameState.SoulsCollected += deathAmount;
 
