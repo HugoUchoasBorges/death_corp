@@ -1,5 +1,7 @@
 # Death Corp
 
+**Também disponível em**: https://hugouchoasborges.itch.io/death-corp
+
 **Plataforma:** Windows
 
 Artista/GameDesigner:
