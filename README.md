@@ -1,5 +1,14 @@
 # Death Corp
 
+**Plataforma:** Windows
+
+Artista/GameDesigner:
+- https://github.com/toiaarantes
+
+Programadores: 
+- http://github.com/HugoUchoasBorges 
+- https://github.com/void-main-void
+
 ## História
 
 A morte morreu! Infelizmente ela pegou um caso de catapora anêmica e faleceu... Dias, meses de luto e ninguém morre na terra. Porém nem tudo está perdido: a super-morte já decidiu quem será a nova morte da Terra! **VOCÊ**!
