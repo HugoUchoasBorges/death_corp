@@ -425,6 +425,9 @@ public class GameController : MonoBehaviour
 
     public SoulsCollector GetSoulsCollectorByName(string name)
     {
+
+        name = name.Replace("CP", "").Replace("BP", "");
+
         if (earthSoulsCollectorClick.name == name)
             return earthSoulsCollectorClick;
         foreach (SoulsCollector soulsCollector in earthSoulsCollector)
@@ -515,6 +518,9 @@ public class GameController : MonoBehaviour
 
     public void CheckButtons()
     {
+        if (!GameManager.canvasInstance)
+            return;
+
         Button[] buttonList = GameManager.canvasInstance.GetComponentsInChildren<Button>();
         List<Button> upgradeButtons = new List<Button>(buttonList).FindAll(x => x.tag == "Upgrade");
 
@@ -522,6 +528,59 @@ public class GameController : MonoBehaviour
         foreach (Button button in upgradeButtons)
         {
             SoulsCollectorName = button.GetComponentInParent<Image>().name;
+            SoulsCollector soulsCollector = GetSoulsCollectorByName(SoulsCollectorName);
+
+            if (soulsCollector == null)
+                throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
+
+            if (SoulsCollectorName.Contains("Bless"))
+            {
+                if (gameState.blessingPoints >= soulsCollector.cost)
+                {
+                    button.interactable = true;
+                }
+                else
+                {
+                    button.interactable = false;
+                }
+            }
+            else if (SoulsCollectorName.Contains("Curse"))
+            {
+                if (gameState.cursePoints >= soulsCollector.cost)
+                {
+                    button.interactable = true;
+                }
+                else
+                {
+                    button.interactable = false;
+                }
+            }
+            else if (SoulsCollectorName.Contains("Gen"))
+            {
+                if (button.name.Contains("CP"))
+                {
+                    if (gameState.cursePoints >= soulsCollector.cost)
+                    {
+                        button.interactable = true;
+                    }
+                    else
+                    {
+                        button.interactable = false;
+                    }
+                }
+                else
+                {
+                    if (gameState.blessingPoints >= soulsCollector.cost)
+                    {
+                        button.interactable = true;
+                    }
+                    else
+                    {
+                        button.interactable = false;
+                    }
+                }
+            }
+
         }
     }
 
@@ -541,6 +600,8 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void UpdateGUI()
     {
+        CheckButtons();
+
         if (GameManager.canvasInstance == null)
         {
             return;
@@ -551,7 +612,7 @@ public class GameController : MonoBehaviour
             infoDisplays = GameManager.canvasInstance.GetComponentsInChildren<Text>();
         }
 
-        if(infoDisplays == null)
+        if (infoDisplays == null)
         {
             return;
         }
@@ -594,7 +655,7 @@ public class GameController : MonoBehaviour
             SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(SoulsCollectorName);
 
             if (soulsCollector == null)
-                throw new System.Exception("Souls Collection '" + name + "' not found");
+                throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
 
             text.text = "LVL: " + soulsCollector.level;
         }
@@ -604,7 +665,7 @@ public class GameController : MonoBehaviour
             SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(SoulsCollectorName);
 
             if (soulsCollector == null)
-                throw new System.Exception("Souls Collection '" + name + "' not found");
+                throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
 
             text.text = "$ " + soulsCollector.cost;
         }
