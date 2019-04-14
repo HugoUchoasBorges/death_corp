@@ -8,6 +8,10 @@ public class Canvas : MonoBehaviour
     private void Awake()
     {
         GameManager.canvasInstance = this;
+    }
+
+    private void Start()
+    {
         GameManager.gameControllerInstance.UpdateGUI();
         GameManager.gameControllerInstance.CheckButtons();
     }

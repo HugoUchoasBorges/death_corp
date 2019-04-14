@@ -595,6 +595,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public string convertUnits(float value)
+    {
+        float flootValue = Mathf.FloorToInt(value);
+
+        string valueText = string.Format((flootValue < 1000) ? "{0:F3}" : "{0:0.00e0}", flootValue);
+        return valueText;
+    }
+
     /// <summary>
     /// Updates all information on Screen
     /// </summary>
@@ -617,12 +625,16 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        string populationDisplay = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
-        string soulsDisplay = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
-        string bpDisplay = "BP: " + Mathf.FloorToInt(gameState.blessingPoints).ToString();
-        string cpDisplay = "CP: " + Mathf.FloorToInt(gameState.cursePoints).ToString();
+        string populationDisplay = "Population: ";
+
+        if (GameManager.earthInstance != null)
+            populationDisplay = "Population: " + convertUnits(GameManager.earthInstance.Population);
+
+        string soulsDisplay = "Souls: " + convertUnits(gameState.SoulsCollected);
+        string bpDisplay = "BP: " + convertUnits(gameState.blessingPoints);
+        string cpDisplay = "CP: " + convertUnits(gameState.cursePoints);
         string scri = "SCRI/s: " + gameState.soulsCRI.ToString();
-        string scrc = "SCRC: " + Mathf.FloorToInt(gameState.soulsCRC).ToString();
+        string scrc = "SCRC: " + convertUnits(gameState.soulsCRC);
 
         string bps = "BP/s: " + gameState.blessingPointsPerSecond.ToString();
         string cps = "CP/s: " + gameState.cursePointsPerSecond.ToString();
