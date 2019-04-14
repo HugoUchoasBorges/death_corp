@@ -448,6 +448,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+
         gameState.SoulsCollected = gameState.initialSoulsCollected;
 
         // Tells Singleton GameManager that I'm the main GameController instance  
@@ -512,6 +513,18 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void CheckButtons()
+    {
+        Button[] buttonList = GameManager.canvasInstance.GetComponentsInChildren<Button>();
+        List<Button> upgradeButtons = new List<Button>(buttonList).FindAll(x => x.tag == "Upgrade");
+
+        string SoulsCollectorName = "";
+        foreach (Button button in upgradeButtons)
+        {
+            SoulsCollectorName = button.GetComponentInParent<Image>().name;
+        }
+    }
+
     public void CheckAchievements()
     {
         foreach (Achievement achievement in achievements)
@@ -532,7 +545,6 @@ public class GameController : MonoBehaviour
         {
             return;
         }
-
 
         if (infoDisplays == null && GameManager.canvasInstance != null)
         {
@@ -578,7 +590,8 @@ public class GameController : MonoBehaviour
         List<Text> genTexts = new List<Text>(infoDisplays);
         foreach (Text text in genTexts.FindAll(x => x.tag == "GenText"))
         {
-            SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(text.name);
+            string SoulsCollectorName = text.GetComponentInParent<Image>().name;
+            SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(SoulsCollectorName);
 
             if (soulsCollector == null)
                 throw new System.Exception("Souls Collection '" + name + "' not found");
@@ -587,7 +600,8 @@ public class GameController : MonoBehaviour
         }
         foreach (Text text in genTexts.FindAll(x => x.tag == "Cost"))
         {
-            SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(text.name);
+            string SoulsCollectorName = text.GetComponentInParent<Image>().name;
+            SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(SoulsCollectorName);
 
             if (soulsCollector == null)
                 throw new System.Exception("Souls Collection '" + name + "' not found");

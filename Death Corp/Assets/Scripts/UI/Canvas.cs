@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Canvas : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Canvas : MonoBehaviour
     {
         GameManager.canvasInstance = this;
         GameManager.gameControllerInstance.UpdateGUI();
+        GameManager.gameControllerInstance.CheckButtons();
     }
 
     public void UpgradeSoulCollector(string name, bool cp)
@@ -19,6 +21,14 @@ public class Canvas : MonoBehaviour
 
         GameManager.gameControllerInstance.UpgradeSoulsCollectorLevel(soulsCollector, cp);
         GameManager.gameControllerInstance.UpdateGUI();
+    }
+
+    public void UpgradeSoulCollector()
+    {
+        GameObject btnObject = EventSystem.current.currentSelectedGameObject;
+        string SoulsCollectorName = btnObject.GetComponentInParent<Image>().name;
+
+        UpgradeSoulCollector(SoulsCollectorName);
     }
 
     public void UpgradeSoulCollector(string name)
