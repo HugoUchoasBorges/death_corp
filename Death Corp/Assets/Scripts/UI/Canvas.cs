@@ -7,6 +7,7 @@ public class Canvas : MonoBehaviour
     private void Awake()
     {
         GameManager.canvasInstance = this;
+        GameManager.gameControllerInstance.UpdateGUI();
     }
 
     public void UpgradeSoulCollector(string name, bool cp)
