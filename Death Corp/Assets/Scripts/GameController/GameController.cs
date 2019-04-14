@@ -617,7 +617,7 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        string populationDisplay = "Population: " + GameManager.earthInstance.Population.ToString();
+        string populationDisplay = "Population: " + Mathf.FloorToInt(GameManager.earthInstance.Population).ToString();
         string soulsDisplay = "Souls: " + Mathf.FloorToInt(gameState.SoulsCollected).ToString();
         string bpDisplay = "BP: " + Mathf.FloorToInt(gameState.blessingPoints).ToString();
         string cpDisplay = "CP: " + Mathf.FloorToInt(gameState.cursePoints).ToString();
@@ -630,17 +630,20 @@ public class GameController : MonoBehaviour
         string birthRate = "Birth/s: " + gameState.birthRate.ToString();
         string deathRate = "Death/s: " + gameState.deathRate.ToString();
 
-        // Temp
-        infoDisplays[0].text = populationDisplay;
-        infoDisplays[1].text = soulsDisplay;
-        infoDisplays[2].text = bpDisplay;
-        infoDisplays[3].text = cpDisplay;
-        infoDisplays[4].text = scri;
-        infoDisplays[5].text = scrc;
-        infoDisplays[6].text = bps;
-        infoDisplays[7].text = cps;
-        infoDisplays[8].text = birthRate;
-        infoDisplays[9].text = deathRate;
+        List<Text> genTexts = new List<Text>(infoDisplays);
+
+        List<Text> gameStatTexts = genTexts.FindAll(x => x.transform.parent.parent.tag == "GameStat");
+
+        gameStatTexts[0].text = populationDisplay;
+        gameStatTexts[1].text = soulsDisplay;
+        gameStatTexts[2].text = bpDisplay;
+        gameStatTexts[3].text = cpDisplay;
+        gameStatTexts[4].text = scri;
+        gameStatTexts[5].text = scrc;
+        gameStatTexts[6].text = bps;
+        gameStatTexts[7].text = cps;
+        gameStatTexts[8].text = birthRate;
+        gameStatTexts[9].text = deathRate;
 
         Slider faithLevel = GameManager.canvasInstance.GetComponentInChildren<Slider>();
         if (faithLevel != null)
@@ -648,7 +651,6 @@ public class GameController : MonoBehaviour
             faithLevel.value = gameState.faithLevel;
         }
 
-        List<Text> genTexts = new List<Text>(infoDisplays);
         foreach (Text text in genTexts.FindAll(x => x.tag == "GenText"))
         {
             string SoulsCollectorName = text.GetComponentInParent<Image>().name;
