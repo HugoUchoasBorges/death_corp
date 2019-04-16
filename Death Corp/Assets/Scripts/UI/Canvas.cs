@@ -30,6 +30,7 @@ public class Canvas : MonoBehaviour
     public void UpgradeSoulCollector()
     {
         GameObject btnObject = EventSystem.current.currentSelectedGameObject;
+
         string SoulsCollectorName = btnObject.GetComponentInParent<Image>().name;
 
         if (EventSystem.current.currentSelectedGameObject.name.Contains("CP"))

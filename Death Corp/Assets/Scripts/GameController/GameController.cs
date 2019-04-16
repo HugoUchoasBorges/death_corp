@@ -205,15 +205,16 @@ public class GameController : MonoBehaviour
                         }
                     }
                 }
-
-
-                gameState.faithLevel = 0.5f;
-                if ((gameState.goodFaith + gameState.badFaith) > 0)
-                    gameState.faithLevel = gameState.goodFaith / (gameState.goodFaith + gameState.badFaith);
-
-                gameState.blessingPointsPerSecond = gameState.faithLevel * gameState.soulsCRI;
-                gameState.cursePointsPerSecond = (1f - gameState.faithLevel) * gameState.soulsCRI;
             }
+            gameState.faithLevel = 0.5f;
+            if ((gameState.goodFaith + gameState.badFaith) > 0)
+            {
+                gameState.faithLevel = gameState.goodFaith / (gameState.goodFaith + gameState.badFaith);
+            }
+
+            gameState.blessingPointsPerSecond = gameState.faithLevel * gameState.soulsCRI;
+            gameState.cursePointsPerSecond = (1f - gameState.faithLevel) * gameState.soulsCRI;
+
         }
 
         #region CalculateGens
@@ -505,8 +506,29 @@ public class GameController : MonoBehaviour
             // Collect the Souls
             gameState.SoulsCollected -= soulsCollectedAmount;
 
-            int blessingPoints = Mathf.RoundToInt(soulsCollectedAmount * gameState.faithLevel);
-            int cursingPoints = Mathf.FloorToInt(soulsCollectedAmount) - blessingPoints;
+            int blessingPoints = 0;
+            int cursingPoints = 0;
+
+
+            if (soulsCollectedAmount == 1)
+            {
+                if (Random.value <= gameState.faithLevel)
+                {
+                    cursingPoints = 1;
+                    blessingPoints = 0;
+                }
+                else
+                {
+                    cursingPoints = 0;
+                    blessingPoints = 1;
+                }
+            }
+            else
+            {
+                blessingPoints = Mathf.RoundToInt(soulsCollectedAmount * gameState.faithLevel);
+                cursingPoints = Mathf.FloorToInt(soulsCollectedAmount) - blessingPoints;
+            }
+
             gameState.blessingPoints += blessingPoints;
             gameState.cursePoints += cursingPoints;
 
@@ -597,7 +619,14 @@ public class GameController : MonoBehaviour
 
     public string convertUnits(float value)
     {
-        float flootValue = Mathf.FloorToInt(value);
+        return convertUnits(value, false);
+    }
+    public string convertUnits(float value, bool isFloat)
+    {
+        float flootValue = value;
+
+        if (!isFloat)
+            flootValue = Mathf.FloorToInt(value);
 
         string valueText = string.Format((flootValue < 1000) ? "{0:F3}" : "{0:0.00e0}", flootValue);
         return valueText;
@@ -633,14 +662,14 @@ public class GameController : MonoBehaviour
         string soulsDisplay = "Souls: " + convertUnits(gameState.SoulsCollected);
         string bpDisplay = "BP: " + convertUnits(gameState.blessingPoints);
         string cpDisplay = "CP: " + convertUnits(gameState.cursePoints);
-        string scri = "SCRI/s: " + gameState.soulsCRI.ToString();
+        string scri = "SCRI/s: " + convertUnits(gameState.soulsCRI, true);
         string scrc = "SCRC: " + convertUnits(gameState.soulsCRC);
 
-        string bps = "BP/s: " + gameState.blessingPointsPerSecond.ToString();
-        string cps = "CP/s: " + gameState.cursePointsPerSecond.ToString();
+        string bps = "BP/s: " + convertUnits(gameState.blessingPointsPerSecond, true);
+        string cps = "CP/s: " + convertUnits(gameState.cursePointsPerSecond, true);
 
-        string birthRate = "Birth/s: " + gameState.birthRate.ToString();
-        string deathRate = "Death/s: " + gameState.deathRate.ToString();
+        string birthRate = "Birth/s: " + convertUnits(gameState.birthRate, true);
+        string deathRate = "Death/s: " + convertUnits(gameState.deathRate, true);
 
         List<Text> genTexts = new List<Text>(infoDisplays);
 
