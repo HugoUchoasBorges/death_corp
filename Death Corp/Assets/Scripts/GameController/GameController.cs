@@ -691,6 +691,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void HandlePopulation()
     {
+        if (!GameManager.earthInstance)
+        {
+            return;
+        }
         GameManager.earthInstance.Population += gameState.birthRate;
         gameState.blessingPoints += gameState.blessingPointsPerSecond;
         gameState.cursePoints += gameState.cursePointsPerSecond;
