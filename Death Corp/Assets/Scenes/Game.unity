@@ -1340,7 +1340,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Bless 1
+  m_Text: Up Bless 1
 --- !u!222 &233282576
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5742,7 +5742,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Curse 2
+  m_Text: Up Curse 2
 --- !u!222 &1037465271
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6054,7 +6054,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Curse 1
+  m_Text: Up Curse 1
 --- !u!222 &1045364626
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9644,7 +9644,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Curse 3
+  m_Text: Up Curse 3
 --- !u!222 &1627494254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9722,7 +9722,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Bless 3
+  m_Text: Up Bless 3
 --- !u!222 &1629791071
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11576,7 +11576,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade Bless 2
+  m_Text: Up Bless 2
 --- !u!222 &2033258385
 CanvasRenderer:
   m_ObjectHideFlags: 0
