@@ -44,6 +44,7 @@ public class Earth : MonoBehaviour
         GameManager.earthInstance = this;
         Population = initialPopulation;
         FloatingTextController.Initialize();
+        FloatingPopupController.Initialize();
     }
     void Start()
     {

@@ -520,7 +520,7 @@ public class GameController : MonoBehaviour
             gameState.blessingPoints += blessingPoints;
             gameState.cursePoints += cursingPoints;
 
-            //FloatingPopupController.CreateFloatingPopup();
+            FloatingPopupController.CreateFloatingPopup();
             UpdateGUI();
             //CheckAchievements();
         }
