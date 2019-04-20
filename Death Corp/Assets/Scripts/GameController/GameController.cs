@@ -711,7 +711,7 @@ public class GameController : MonoBehaviour
                 throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
 
             string textValue = "$ " + Mathf.Ceil(soulsCollector.cost).ToString();
-            ReplaceText(text, textValue);
+            text.text = textValue;
         }
     }
 
