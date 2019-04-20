@@ -18,15 +18,21 @@ public class Earth : MonoBehaviour
     [Header("Earth Info")]
     public float initialPopulation = 70;
     [SerializeField]
-    private float population = 0;
+    private double population = 0;
 
-    public float Population {
-        get {
+    public double Population
+    {
+        get
+        {
             return population;
         }
 
-        set {
-            population = Mathf.Max(value, 0);
+        set
+        {
+            if (value <= 0)
+                population = 0;
+            else
+                population = value;
         }
     }
 
@@ -73,7 +79,7 @@ public class Earth : MonoBehaviour
         GameManager.mousePointerInstance.UnClick();
     }
 
-    private void OnMouseDown() 
+    private void OnMouseDown()
     {
         if (animator)
         {

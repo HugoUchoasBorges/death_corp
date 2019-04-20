@@ -340,32 +340,19 @@ public class GameController : MonoBehaviour
         [Header("Points")]
         public float clickAmount = 0;
         public float level = 0;
-        public float initialSoulsCollected = 1000;
-        [SerializeField]
-        private float soulsCollected = 0;
-        public float SoulsCollected
-        {
-            get
-            {
-                return soulsCollected;
-            }
-            set
-            {
-                soulsCollected = Mathf.Max(value, 0);
-            }
-        }
-        public float blessingPoints = 0;
+        public float soulsCollected = 0;
+        public double blessingPoints = 0;
         public float blessingPointsPerSecond = 0;
-        public float cursePoints = 0;
+        public double cursePoints = 0;
         public float cursePointsPerSecond = 0;
 
         [Space(5)]
         [Header("Game Info")]
         public float soulsCRI = 0;
         public float soulsCRC = 0;
-        public float initialDeathRate = 1;
+        public float initialDeathRate = 0;
         public float deathRate = 0;
-        public float initialBirthRate = 1;
+        public float initialBirthRate = 0;
         public float birthRate = 0;
         [Range(0f, 1f)]
         public float faithLevel = 0.5f;
@@ -453,8 +440,6 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
 
-        gameState.SoulsCollected = gameState.initialSoulsCollected;
-
         // Tells Singleton GameManager that I'm the main GameController instance  
         GameManager.gameControllerInstance = this;
 
@@ -500,11 +485,12 @@ public class GameController : MonoBehaviour
     public void CollectSouls(int amount)
     {
         gameState.clickAmount++;
-        float soulsCollectedAmount = Mathf.Min(gameState.SoulsCollected, amount * Mathf.Max(1, gameState.soulsCRC));
+        float soulsCollectedAmount = Mathf.Min(System.Convert.ToInt64(GameManager.earthInstance.Population), amount * Mathf.Max(1, gameState.soulsCRC));
         if (soulsCollectedAmount > 0)
         {
             // Collect the Souls
-            gameState.SoulsCollected -= soulsCollectedAmount;
+            gameState.soulsCollected += soulsCollectedAmount;
+            GameManager.earthInstance.Population -= soulsCollectedAmount;
 
             int blessingPoints = 0;
             int cursingPoints = 0;
@@ -654,14 +640,14 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        string populationDisplay = "Population: ";
+        string populationDisplay = "";
 
         if (GameManager.earthInstance != null)
-            populationDisplay = "Population: " + convertUnits(GameManager.earthInstance.Population);
+            populationDisplay = System.Convert.ToInt64(GameManager.earthInstance.Population).ToString("n0");
 
-        string soulsDisplay = "Souls: " + convertUnits(gameState.SoulsCollected);
-        string bpDisplay = "BP: " + convertUnits(gameState.blessingPoints);
-        string cpDisplay = "CP: " + convertUnits(gameState.cursePoints);
+        string soulsDisplay = Mathf.FloorToInt(gameState.soulsCollected).ToString("n0");
+        string bpDisplay = "BP: " + System.Convert.ToInt64(gameState.blessingPoints).ToString("n0");
+        string cpDisplay = "CP: " + System.Convert.ToInt64(gameState.cursePoints).ToString("n0");
         string scri = "SCRI/s: " + convertUnits(gameState.soulsCRI, true);
         string scrc = "SCRC: " + convertUnits(gameState.soulsCRC);
 
@@ -673,7 +659,7 @@ public class GameController : MonoBehaviour
 
         List<Text> genTexts = new List<Text>(infoDisplays);
 
-        List<Text> gameStatTexts = genTexts.FindAll(x => x.transform.parent.parent.tag == "GameStat");
+        List<Text> gameStatTexts = genTexts.FindAll(x => x.transform.parent.parent.tag == "GameStat" || (x.transform.parent.parent.parent && x.transform.parent.parent.parent.tag == "GameStat"));
 
         gameStatTexts[0].text = populationDisplay;
         gameStatTexts[1].text = soulsDisplay;
@@ -728,9 +714,9 @@ public class GameController : MonoBehaviour
         gameState.blessingPoints += gameState.blessingPointsPerSecond;
         gameState.cursePoints += gameState.cursePointsPerSecond;
 
-        float deathAmount = Mathf.Min(GameManager.earthInstance.Population, gameState.deathRate + gameState.soulsCRI);
+        float deathAmount = Mathf.Min(System.Convert.ToInt64(GameManager.earthInstance.Population), gameState.deathRate + gameState.soulsCRI);
         GameManager.earthInstance.Population -= deathAmount;
-        gameState.SoulsCollected += deathAmount;
+        gameState.soulsCollected += deathAmount;
 
         UpdateGUI();
     }
