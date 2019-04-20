@@ -43,11 +43,11 @@ public class Earth : MonoBehaviour
         // Tells Singleton GameManager that I'm the main Earth instance  
         GameManager.earthInstance = this;
         Population = initialPopulation;
+        FloatingTextController.Initialize();
     }
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        FloatingPopupController.Initialize();
     }
 
     #region Mouse Inputs

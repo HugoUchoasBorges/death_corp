@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     public static Canvas canvasInstance;
     public static MousePointer mousePointerInstance;
 
+    public static float clickAmount = 0;
+
     #endregion
 
     /// <summary>

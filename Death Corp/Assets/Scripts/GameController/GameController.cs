@@ -485,6 +485,8 @@ public class GameController : MonoBehaviour
     public void CollectSouls(int amount)
     {
         gameState.clickAmount++;
+        GameManager.clickAmount++;
+
         float soulsCollectedAmount = Mathf.Min(System.Convert.ToInt64(GameManager.earthInstance.Population), amount * Mathf.Max(1, gameState.soulsCRC));
         if (soulsCollectedAmount > 0)
         {
@@ -518,7 +520,7 @@ public class GameController : MonoBehaviour
             gameState.blessingPoints += blessingPoints;
             gameState.cursePoints += cursingPoints;
 
-            FloatingPopupController.CreateFloatingPopup();
+            //FloatingPopupController.CreateFloatingPopup();
             UpdateGUI();
             //CheckAchievements();
         }
@@ -643,9 +645,9 @@ public class GameController : MonoBehaviour
         string populationDisplay = "";
 
         if (GameManager.earthInstance != null)
-            populationDisplay = System.Convert.ToInt64(GameManager.earthInstance.Population).ToString("n0");
+            populationDisplay = GameManager.earthInstance.Population.ToString("n0");
 
-        string soulsDisplay = Mathf.FloorToInt(gameState.soulsCollected).ToString("n0");
+        string soulsDisplay = System.Convert.ToInt64(gameState.soulsCollected).ToString("n0");
         string bpDisplay = "BP: " + System.Convert.ToInt64(gameState.blessingPoints).ToString("n0");
         string cpDisplay = "CP: " + System.Convert.ToInt64(gameState.cursePoints).ToString("n0");
         string scri = "SCRI/s: " + convertUnits(gameState.soulsCRI, true);
@@ -661,16 +663,27 @@ public class GameController : MonoBehaviour
 
         List<Text> gameStatTexts = genTexts.FindAll(x => x.transform.parent.parent.tag == "GameStat" || (x.transform.parent.parent.parent && x.transform.parent.parent.parent.tag == "GameStat"));
 
-        gameStatTexts[0].text = populationDisplay;
-        gameStatTexts[1].text = soulsDisplay;
-        gameStatTexts[2].text = bpDisplay;
-        gameStatTexts[3].text = cpDisplay;
-        gameStatTexts[4].text = scri;
-        gameStatTexts[5].text = scrc;
-        gameStatTexts[6].text = bps;
-        gameStatTexts[7].text = cps;
-        gameStatTexts[8].text = birthRate;
-        gameStatTexts[9].text = deathRate;
+        ReplaceText(gameStatTexts[0], populationDisplay);
+        ReplaceText(gameStatTexts[1], soulsDisplay);
+        ReplaceText(gameStatTexts[2], bpDisplay);
+        ReplaceText(gameStatTexts[3], cpDisplay);
+        ReplaceText(gameStatTexts[4], scri);
+        ReplaceText(gameStatTexts[5], scrc);
+        ReplaceText(gameStatTexts[6], bps);
+        ReplaceText(gameStatTexts[7], cps);
+        ReplaceText(gameStatTexts[8], birthRate);
+        ReplaceText(gameStatTexts[9], deathRate);
+
+        //gameStatTexts[0].text = populationDisplay;
+        //gameStatTexts[1].text = soulsDisplay;
+        //gameStatTexts[2].text = bpDisplay;
+        //gameStatTexts[3].text = cpDisplay;
+        //gameStatTexts[4].text = scri;
+        //gameStatTexts[5].text = scrc;
+        //gameStatTexts[6].text = bps;
+        //gameStatTexts[7].text = cps;
+        //gameStatTexts[8].text = birthRate;
+        //gameStatTexts[9].text = deathRate;
 
         Slider faithLevel = GameManager.canvasInstance.GetComponentInChildren<Slider>();
         if (faithLevel != null)
@@ -686,7 +699,8 @@ public class GameController : MonoBehaviour
             if (soulsCollector == null)
                 throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
 
-            text.text = "LVL: " + soulsCollector.level;
+            string textValue = "LVL: " + soulsCollector.level;
+            ReplaceText(text, textValue);
         }
         foreach (Text text in genTexts.FindAll(x => x.tag == "Cost"))
         {
@@ -696,7 +710,8 @@ public class GameController : MonoBehaviour
             if (soulsCollector == null)
                 throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
 
-            text.text = "$ " + Mathf.Ceil(soulsCollector.cost).ToString();
+            string textValue = "$ " + Mathf.Ceil(soulsCollector.cost).ToString();
+            ReplaceText(text, textValue);
         }
     }
 
@@ -743,5 +758,49 @@ public class GameController : MonoBehaviour
     public void HideCredits()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public static void ReplaceText(Text text, string value)
+    {
+        string oldText = text.text.Replace(",", "");
+        string newText = value.Replace(",", "");
+
+        text.text = value;
+
+        if (GameManager.clickAmount == 0)
+            return;
+
+        if (newText.Contains("."))
+        {
+            double oldValue = double.Parse(System.Text.RegularExpressions.Regex.Match(oldText, @"\d+\.*\d*").Value);
+            double newValue = double.Parse(System.Text.RegularExpressions.Regex.Match(newText, @"\d+\.*\d*").Value);
+
+            float diference = (float)(newValue - oldValue);
+
+            if (diference != 0 && Mathf.Abs(diference) > 0.001f)
+            {
+                string valueOperator = "+";
+                if (diference < 0)
+                    valueOperator = "";
+
+                FloatingTextController.CreateFloatingText(valueOperator + diference.ToString(), text.transform, diference < 0);
+            }
+        }
+        else
+        {
+            long oldValue = long.Parse(System.Text.RegularExpressions.Regex.Match(oldText, @"\d+").Value);
+            long newValue = long.Parse(System.Text.RegularExpressions.Regex.Match(newText, @"\d+").Value);
+
+            long diference = newValue - oldValue;
+
+            if (diference != 0)
+            {
+                string valueOperator = "+";
+                if (diference < 0)
+                    valueOperator = "";
+
+                FloatingTextController.CreateFloatingText(valueOperator + diference.ToString(), text.transform, diference < 0);
+            }
+        }
     }
 }
