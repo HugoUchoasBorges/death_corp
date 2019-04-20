@@ -9,7 +9,7 @@ public class FloatingText : MonoBehaviour
     #region Variables
 
     public Animator animator;
-    private Text textValue;
+    private Text textComponent;
 
     public Color positiveColor;
     public Color negativeColor;
@@ -20,16 +20,16 @@ public class FloatingText : MonoBehaviour
     {
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
         Destroy(gameObject, clipInfo[0].clip.length);
-        textValue = gameObject.GetComponentInChildren<Text>();
+        textComponent = gameObject.GetComponentInChildren<Text>();
     }
 
     public void SetText(string text)
     {
-        textValue.text = text;
+        textComponent.text = text;
     }
 
-    public void SetColor(Color color)
+    public void SetColor(Color c)
     {
-        textValue.color = color;
+        textComponent.color = c;
     }
 }

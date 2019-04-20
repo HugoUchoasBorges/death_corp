@@ -7,13 +7,13 @@ public class FloatingTextController : MonoBehaviour
 
     #region Variables
 
-    private static FloatingText popupText;
+    private static GameObject popupTextObject;
 
     #endregion
 
     public static void Initialize()
     {
-        popupText = Resources.Load<FloatingText>("Prefabs/PopupTextParent");
+        popupTextObject = Resources.Load<GameObject>("Prefabs/PopupTextParent");
     }
 
     public static void CreateFloatingText(string text, Transform location)
@@ -23,24 +23,21 @@ public class FloatingTextController : MonoBehaviour
 
     public static void CreateFloatingText(string text, Transform location, bool negative)
     {
-        //if (!popupText)
-        //    Initialize();
 
         Canvas canvas = GameManager.canvasInstance;
 
-        FloatingText instance = Instantiate(popupText);
+        GameObject instance = Instantiate(popupTextObject);
+        FloatingText floatingText = instance.GetComponent<FloatingText>();
 
-        Color color = instance.positiveColor;
+        Color c = floatingText.positiveColor;
         if (negative)
         {
-            color = instance.negativeColor;
+            c = floatingText.negativeColor;
         }
-
-        //Debug.Log("Value: " + text + " - Color: " + color);
 
         instance.transform.SetParent(canvas.transform, false);
         instance.transform.position = location.position;
-        instance.SetText(text);
-        instance.SetColor(color);
+        floatingText.SetText(text);
+        floatingText.SetColor(c);
     }
 }
