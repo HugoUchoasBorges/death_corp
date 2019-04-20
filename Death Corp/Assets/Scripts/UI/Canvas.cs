@@ -31,6 +31,9 @@ public class Canvas : MonoBehaviour
     {
         GameObject btnObject = EventSystem.current.currentSelectedGameObject;
 
+        if (!btnObject)
+            return;
+
         string SoulsCollectorName = btnObject.GetComponentInParent<Image>().name;
 
         if (EventSystem.current.currentSelectedGameObject.name.Contains("CP"))
