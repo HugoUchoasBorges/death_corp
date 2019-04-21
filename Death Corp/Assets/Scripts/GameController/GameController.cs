@@ -645,9 +645,9 @@ public class GameController : MonoBehaviour
         string populationDisplay = "";
 
         if (GameManager.earthInstance != null)
-            populationDisplay = GameManager.earthInstance.Population.ToString("n0");
+            populationDisplay = "Population: " + GameManager.earthInstance.Population.ToString("n0");
 
-        string soulsDisplay = System.Convert.ToInt64(gameState.soulsCollected).ToString("n0");
+        string soulsDisplay = "Souls: " + System.Convert.ToInt64(gameState.soulsCollected).ToString("n0");
         string bpDisplay = "BP: " + System.Convert.ToInt64(gameState.blessingPoints).ToString("n0");
         string cpDisplay = "CP: " + System.Convert.ToInt64(gameState.cursePoints).ToString("n0");
         string scri = "SCRI/s: " + convertUnits(gameState.soulsCRI, true);
