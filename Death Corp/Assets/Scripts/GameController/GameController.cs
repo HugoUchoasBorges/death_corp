@@ -691,7 +691,8 @@ public class GameController : MonoBehaviour
             faithLevel.value = gameState.faithLevel;
         }
 
-        foreach (Text text in genTexts.FindAll(x => x.tag == "GenText"))
+        List<Text> genTextList = genTexts.FindAll(x => x.tag == "GenText");
+        foreach (Text text in genTextList)
         {
             string SoulsCollectorName = text.GetComponentInParent<Image>().name;
             SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(SoulsCollectorName);
@@ -700,9 +701,12 @@ public class GameController : MonoBehaviour
                 throw new System.Exception("Souls Collection '" + SoulsCollectorName + "' not found");
 
             string textValue = "LVL: " + soulsCollector.level;
+            text.text = textValue;
             ReplaceText(text, textValue);
         }
-        foreach (Text text in genTexts.FindAll(x => x.tag == "Cost"))
+
+        List<Text> costTextList = genTexts.FindAll(x => x.tag == "Cost");
+        foreach (Text text in costTextList)
         {
             string SoulsCollectorName = text.GetComponentInParent<Image>().name;
             SoulsCollector soulsCollector = GameManager.gameControllerInstance.GetSoulsCollectorByName(SoulsCollectorName);
