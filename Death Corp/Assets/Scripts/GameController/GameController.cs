@@ -230,7 +230,7 @@ public class GameController : MonoBehaviour
         }
         private void CalculateGen2()
         {
-            profit = 0.1f * level;
+            profit = 1.2f * level;
             cost = 10 + Mathf.Pow((float)level, 1.5f);
             x10 = 2 * profit;
             x25 = 4 * profit;
@@ -251,7 +251,7 @@ public class GameController : MonoBehaviour
         private void CalculateGen4()
         {
             profit = 2f * (200 + 2 * level);
-            cost = 1000 + Mathf.Pow((float)level, 2f);
+            cost = 1000 + Mathf.Pow(level, 2f);
             x10 = 2 * profit;
             x25 = 5 * profit;
             x50 = 10 * profit;
@@ -261,7 +261,7 @@ public class GameController : MonoBehaviour
         private void CalculateGen5()
         {
             profit = 5000f + 500 * level;
-            cost = 5000f + 2f * Mathf.Pow((float)level, 1.5f);
+            cost = 5000f + 2f * Mathf.Pow(level, 1.5f);
             x10 = 1.5f * profit;
             x25 = 3 * profit;
             x50 = 6 * profit;
@@ -274,26 +274,26 @@ public class GameController : MonoBehaviour
         #region CalculateBlesses
         private void CalculateBless1()
         {
-            birthRate = 0.5f * level;
-            cost = 10 + Mathf.Pow((float)level, 2f);
+            birthRate = 1.55f * level;
+            cost = 10 + Mathf.Pow(level, 2f);
             goodFaith = 0.5f * level;
         }
         private void CalculateBless2()
         {
-            birthRate = 0.1f * level;
-            cost = 10 + Mathf.Pow((float)level, 1.5f);
+            birthRate = 0.8f * level;
+            cost = 10 + Mathf.Pow(level, 1.5f);
             goodFaith = level;
         }
         private void CalculateBless3()
         {
             birthRate = 4f * (12f + level);
-            cost = 100 + Mathf.Pow((float)level, 1.5f);
+            cost = 100 + Mathf.Pow(level, 1.5f);
             goodFaith = 5f + 1.5f * level;
         }
         private void CalculateBless4()
         {
             birthRate = 2f * (200f + 2f * level);
-            cost = 100 + Mathf.Pow((float)level, 2f);
+            cost = 100 + Mathf.Pow(level, 2f);
             goodFaith = 3f * level + 10f;
         }
 
@@ -303,29 +303,29 @@ public class GameController : MonoBehaviour
 
         private void CalculateCurse1()
         {
-            deathRate = 0.5f * level;
-            cost = 10 + Mathf.Pow((float)level, 2f);
+            deathRate = 1.5f * level;
+            cost = 10 + Mathf.Pow(level, 2f);
             badFaith = 0.5f * level;
         }
 
         private void CalculateCurse2()
         {
-            deathRate = 0.1f * level;
-            cost = 10 + Mathf.Pow((float)level, 1.5f);
+            deathRate = 0.8f * level;
+            cost = 10 + Mathf.Pow(level, 1.5f);
             badFaith = level;
         }
 
         private void CalculateCurse3()
         {
             deathRate = 4f * (12f + level);
-            cost = 100 + Mathf.Pow((float)level, 1.5f);
+            cost = 100 + Mathf.Pow(level, 1.5f);
             badFaith = 5f + 0.5f * level;
         }
 
         private void CalculateCurse4()
         {
             deathRate = 2f * (200f + 2f * level);
-            cost = 1000 + Mathf.Pow((float)level, 2f);
+            cost = 1000 + Mathf.Pow(level, 2f);
             badFaith = 10f + 3f * level;
         }
 
