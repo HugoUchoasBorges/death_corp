@@ -733,7 +733,7 @@ public class GameController : MonoBehaviour
         gameState.blessingPoints += gameState.blessingPointsPerSecond;
         gameState.cursePoints += gameState.cursePointsPerSecond;
 
-        float deathAmount = Mathf.Min(System.Convert.ToInt64(GameManager.earthInstance.Population), gameState.deathRate + gameState.soulsCRI);
+        float deathAmount = Mathf.Min((float)GameManager.earthInstance.Population, gameState.deathRate + gameState.soulsCRI);
         GameManager.earthInstance.Population -= deathAmount;
         gameState.soulsCollected += deathAmount;
 
