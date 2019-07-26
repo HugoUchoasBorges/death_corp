@@ -2,7 +2,7 @@
 
 **Também disponível em**: https://hugouchoasborges.itch.io/death-corp
 
-**Plataforma:** Windows
+**Plataforma:** Web // Windows
 
 Artista/GameDesigner:
 - https://github.com/toiaarantes
